@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1048846186129:android:1b9c781b696dfd81a93130",
+        "mobilesdk_app_id": "1:1048846186129:android:f857eee88a6d2c00a93130",
         "android_client_info": {
-          "package_name": "com.zaratech.renttech"
+          "package_name": "com.zaratech.rent_tech"
         }
       },
       "oauth_client": [
@@ -29,6 +29,13 @@
             {
               "client_id": "1048846186129-ee07udfnhc1bh6kjkhrfu2b1h28gflha.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1048846186129-deglk0hpvv3vhb5uq2hmqctq4rkpoaud.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zaratech.rentTech"
+              }
             }
           ]
         }
