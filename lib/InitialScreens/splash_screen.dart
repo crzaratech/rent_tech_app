@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_tech/utils/route_generator.dart';
+
 //splash screen to either create account or log In
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,20 +18,18 @@ class _SplashScreenState extends State<SplashScreen> {
             Text("Welcome to Rent Tech!"),
             RaisedButton(
                 child: Text('Create Account'),
-                onPressed: null),
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/signup');
+                }),
             Text('Already have an account?'),
             RaisedButton(
                 child: Text('Login'),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pushNamed('/login');
-                }
-            ),
-
+                }),
           ],
         ),
       ),
     );
-
-
   }
 }
