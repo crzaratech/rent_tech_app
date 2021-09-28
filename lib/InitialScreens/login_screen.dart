@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -116,13 +115,13 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(
               'Remember me',
               style:
-              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ],
         ));
   }
-  Widget buildLoginBtn()
-  {
+
+  Widget buildLoginBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25),
       width: double.infinity,
@@ -130,54 +129,41 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 5,
         onPressed: () => print('Login Pressed'),
         padding: EdgeInsets.all(15),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         color: Colors.white,
         child: Text(
           'Login',
           style: TextStyle(
               color: Color(0xff00bfff),
               fontSize: 18,
-              fontWeight: FontWeight.bold
-          ),
+              fontWeight: FontWeight.bold),
         ),
       ),
     );
   }
-  Widget buildSignUpBtn()
-  {
+
+  Widget buildSignUpBtn() {
     return GestureDetector(
-      onTap: ()=> print("sign up"),
+      onTap: () => Navigator.of(context).pushNamed('/signup'),
       child: RichText(
-        text: TextSpan(
-            children: [
-              TextSpan(
-                  text: 'Don\'t have an Accout?',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500
-                  )
-
-              ),
-              TextSpan(
-                  text: ' Sign up',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold
-                  )
-
-              )
-            ]
-
-
-        ),
+        text: TextSpan(children: [
+          TextSpan(
+              text: 'Don\'t have an Accout?',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500)),
+          TextSpan(
+              text: ' Sign up',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold))
+        ]),
       ),
-
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -194,11 +180,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Color(0x6600bfff),
-                          Color(0x9900bfff),
-                          Color(0xff00bfff),
-                          Color(0xff00bfff),
-                        ])),
+                      Color(0x6600bfff),
+                      Color(0x9900bfff),
+                      Color(0xff00bfff),
+                      Color(0xff00bfff),
+                    ])),
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
                     horizontal: 25,
