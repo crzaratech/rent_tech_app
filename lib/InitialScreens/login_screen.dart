@@ -1,7 +1,11 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -9,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool isRememberMe = false;
   Widget buildEmail() {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
