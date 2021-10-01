@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:rent_tech/utils/route_generator.dart';
+import 'package:rent_tech/InitialScreens/login_screen.dart';
+import 'package:rent_tech/InitialScreens/signup_screen.dart';
+
 
 //splash screen to either create account or log In
 class SplashScreen extends StatefulWidget {
@@ -19,13 +22,13 @@ class _SplashScreenState extends State<SplashScreen> {
             RaisedButton(
                 child: Text('Create Account'),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/signup');
+                 Navigator.push(context, new MaterialPageRoute(builder: (context) => new SignupScreen()));
                 }),
             Text('Already have an account?'),
             RaisedButton(
                 child: Text('Login'),
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/login');
+                  Navigator.push(context, new MaterialPageRoute(builder: (context) => new LoginScreen()));
                 }),
           ],
         ),
