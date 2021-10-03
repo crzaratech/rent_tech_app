@@ -11,6 +11,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.blue[50],
+        appBar: AppBar(
+
+          backgroundColor: Colors.white,
+          title: Text("Tech to Rent",style: TextStyle(
+            color: Colors.black,
+          ),),
+
+        ),
         body: Center(
           child: Center(
             child: Text("This is the homescreen?"),

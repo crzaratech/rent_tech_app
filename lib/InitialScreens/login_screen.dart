@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  late TextEditingController _emailTextController = TextEditingController(text:'');
+  late TextEditingController _pwTextController = TextEditingController(text:'');
+
   bool isRememberMe = false;
   Widget buildEmail() {
 
@@ -38,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ]),
           height: 60,
           child: TextField(
+            controller: _emailTextController,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: Colors.black87),
               decoration: InputDecoration(
@@ -74,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ]),
           height: 60,
           child: TextField(
+            controller: _pwTextController,
               obscureText: true,
               style: TextStyle(color: Colors.black87),
               decoration: InputDecoration(
@@ -138,8 +146,14 @@ class _LoginScreenState extends State<LoginScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5,
-        onPressed: () {
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+        onPressed: () async{
+          try{
+            await _auth.signInWithEmailAndPassword(email: _emailTextController.text.trim(), password: _pwTextController.text.trim());
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+          }catch(error){
+            print(error);
+          }
+
 
         },
         padding: EdgeInsets.all(20),
