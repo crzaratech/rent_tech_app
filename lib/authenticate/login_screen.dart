@@ -4,20 +4,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rent_tech/InitialScreens/signup_screen.dart';
 import 'package:rent_tech/InitialScreens/forgotpassword_screen.dart';
+import 'package:rent_tech/authenticate/fire_auth.dart';
 import 'package:rent_tech/homescreen/home_screen.dart';
 
 
 class LoginScreen extends StatefulWidget {
+
+  final Function toggleView;
+  LoginScreen({ required this.toggleView});
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
+  //final FirebaseAuth _auth = FirebaseAuth.instance;
+  final AuthService _auth = AuthService();
   late TextEditingController _emailTextController = TextEditingController(text:'');
   late TextEditingController _pwTextController = TextEditingController(text:'');
 
@@ -148,8 +151,8 @@ class _LoginScreenState extends State<LoginScreen> {
         elevation: 5,
         onPressed: () async{
           try{
-            await _auth.signInWithEmailAndPassword(email: _emailTextController.text.trim(), password: _pwTextController.text.trim());
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+            await _auth.signInWithEmailAndPassword(_emailTextController.text.trim(), _pwTextController.text.trim());
+            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
           }catch(error){
             print(error);
           }
@@ -173,7 +176,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget buildSignUpBtn() {
     return GestureDetector(
       onTap: () {
-         Navigator.push(context, new MaterialPageRoute(builder: (context) => new SignupScreen()));
+         //Navigator.push(context, new MaterialPageRoute(builder: (context) => new SignupScreen()));
+        widget.toggleView();
       },
       child: RichText(
         text: TextSpan(children: [

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rent_tech/InitialScreens/login_screen.dart';
+import '../authenticate/login_screen.dart';
 class Forgotscreen extends StatefulWidget {
   @override
   _ForgotscreenState createState() => _ForgotscreenState();
@@ -123,7 +123,7 @@ class _ForgotscreenState extends State<Forgotscreen> {
         elevation: 5,
         onPressed: ()
         {
-          Navigator.push(context, new MaterialPageRoute(builder: (context) => new LoginScreen()));
+         // Navigator.push(context, new MaterialPageRoute(builder: (context) => new LoginScreen(toggleView: true,)));
         },
         padding: EdgeInsets.all(25),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
