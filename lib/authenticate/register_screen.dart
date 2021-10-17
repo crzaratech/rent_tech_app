@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rent_tech/InitialScreens/forgotpassword_screen.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
-import 'package:rent_tech/homescreen/home_screen.dart';
+
 
 
 class RegisterScreen extends StatefulWidget {
@@ -151,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         onPressed: () async{
           try{
             await _auth.registerWithEmailAndPassword(_emailTextController.text.trim(), _pwTextController.text.trim());
-            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+
           }catch(error){
             print(error);
           }
