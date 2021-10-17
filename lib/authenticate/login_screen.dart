@@ -1,12 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rent_tech/InitialScreens/forgotpassword_screen.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
-import 'package:rent_tech/homescreen/home_screen.dart';
+
 
 
 class LoginScreen extends StatefulWidget {
@@ -152,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () async{
           try{
             await _auth.signInWithEmailAndPassword(_emailTextController.text.trim(), _pwTextController.text.trim());
-            //Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+
           }catch(error){
             print(error);
           }

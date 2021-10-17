@@ -1,10 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rent_tech/InitialScreens/splash_screen.dart';
 import 'package:rent_tech/screens/wrapper.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
-import 'package:rent_tech/UI/appthemedata.dart';
+
 
 import 'authenticate/fire_auth.dart';
 import 'models/myuser.dart';
