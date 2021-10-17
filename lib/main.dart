@@ -1,63 +1,36 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_tech/InitialScreens/splash_screen.dart';
-
+import 'package:rent_tech/screens/wrapper.dart';
+import 'package:rent_tech/authenticate/fire_auth.dart';
 import 'package:rent_tech/UI/appthemedata.dart';
 
-void main() {
+import 'authenticate/fire_auth.dart';
+import 'models/myuser.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
 
   @override
   Widget build(BuildContext context) {
-
-    return FutureBuilder(
-      future: _initialization,
-        builder: (context, snapshot){
-          if(snapshot.connectionState == ConnectionState.waiting){
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-              body: Center(
-                child: Center(
-                  child: Text("working?"),
-                ),
-              ),
-            ),
-          );
-
-        }else if(snapshot.hasError){
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: Scaffold(
-            body: Center(
-              child: Center(
-                child: Text("An error accorred :("),
-              ),
-            ),
-            ),
-          );
-        }
-        return MaterialApp(
+      return StreamProvider<MyUser?>.value(
+        catchError: (_,__) => null,
+        value: AuthService().user,
+        initialData: null,
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Rent Tech',
-
-          theme: CustomTheme.lightTheme,
-
-          home: SplashScreen(),
-
-        );
-
-        },
-
-    );
-
+          home: Wrapper(),
+        ),
+      );
 
   }
 }
-
 
