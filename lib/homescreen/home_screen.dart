@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
+import 'package:rent_tech/displaya_all_products/allproducts.dart';
 import 'package:rent_tech/productScreens/accessoriesForRent.dart';
 import 'package:rent_tech/productScreens/desktopsForRent.dart';
 import 'package:rent_tech/productScreens/laptopsForRent.dart';
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (context) => new laptopsForRent()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllProducts()));
                         },
                         child: Image.asset('assets/laptop.png'),
                         //elevation: 5,
@@ -106,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (context) => new desktopsForRent()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllProducts()));
                         },
                       child: Image.asset('assets/desktop.png', fit: BoxFit.cover),
                       //elevation: 5,
@@ -142,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, new MaterialPageRoute(builder: (context) => new accessoriesForRent()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllProducts()));
                         },
                       child: Image.asset('assets/accessories.png',fit: BoxFit.cover),
                       //elevation: 5,

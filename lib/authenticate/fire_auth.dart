@@ -56,6 +56,12 @@ class AuthService{
     }
   }
 
+  String getCurrentUser() {
+    return _auth.currentUser!.uid;
+  }
+  String? getCurrentUserEmail(){
+    return _auth.currentUser!.email;
+  }
 //forgot password
 
 
