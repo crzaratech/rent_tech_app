@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
+import 'package:rent_tech/displaya_all_products/allproducts.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -35,6 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Center(
             child: Text("This is the homescreen?"),
           ),
+
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.red,
+          onPressed: (){
+            Navigator.push(context, new MaterialPageRoute(builder: (context) => AllProducts()));
+          },
+          child: Icon(Icons.check),
         ),
       ),
     );
