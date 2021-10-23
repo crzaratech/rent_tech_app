@@ -8,6 +8,7 @@ import 'package:rent_tech/productScreens/accessoriesForRent.dart';
 import 'package:rent_tech/productScreens/desktopsForRent.dart';
 import 'package:rent_tech/productScreens/laptopsForRent.dart';
 import 'package:rent_tech/displaya_all_products/upload_product.dart';
+import 'package:rent_tech/homescreen/scoll_products.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -16,7 +17,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final AuthService _auth = AuthService();
+  int _currentIndex = 0;
 
+  final tabs = [
+    Center(child: ProductTypes()),
+    Center(child: uploadProduct()),
+    Center(child: Text('Setting')),
+  ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,153 +56,21 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle), label: 'Add Product'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
-        ]),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Rent",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 34),
-                  ),
-                ),
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    height: 220,
-                    width: double.maxFinite,
-                    child: Card(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllProducts()));
-                        },
-                        child: Image.asset('assets/laptop.png'),
-                        //elevation: 5,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 1, 20, 1),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Laptops",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 1, 20, 20),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "2 items",
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 14),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    height: 220,
-                    width: double.maxFinite,
-                    child: Card(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllProducts()));
-                        },
-                        child: Image.asset('assets/desktop.png',
-                            fit: BoxFit.cover),
-                        //elevation: 5,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 1, 20, 1),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Desktops",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 1, 20, 20),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "5 items",
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 14),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                    height: 220,
-                    width: double.maxFinite,
-                    child: Card(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AllProducts()));
-                        },
-                        child: Image.asset('assets/accessories.png',
-                            fit: BoxFit.cover),
-                        //elevation: 5,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 1, 20, 1),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "Accessories",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 24),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 1, 20, 20),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        "3 items",
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 14),
-                      ),
-                    ),
-                  ),
-                ]),
-              ),
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.add_circle), label: 'Add Product'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), label: 'Settings'),
             ],
-          ),
-        ),
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            }),
+        body: tabs[_currentIndex],
       ),
     );
   }
