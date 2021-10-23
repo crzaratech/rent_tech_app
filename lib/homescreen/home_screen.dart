@@ -7,6 +7,7 @@ import 'package:rent_tech/displaya_all_products/allproducts.dart';
 import 'package:rent_tech/productScreens/accessoriesForRent.dart';
 import 'package:rent_tech/productScreens/desktopsForRent.dart';
 import 'package:rent_tech/productScreens/laptopsForRent.dart';
+import 'package:rent_tech/displaya_all_products/upload_product.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -48,6 +49,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+        bottomNavigationBar: BottomNavigationBar(items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.add_circle), label: 'Add Product'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.settings), label: 'Settings'),
+        ]),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -71,7 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllProducts()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AllProducts()));
                         },
                         child: Image.asset('assets/laptop.png'),
                         //elevation: 5,
@@ -107,10 +118,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllProducts()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AllProducts()));
                         },
-                      child: Image.asset('assets/desktop.png', fit: BoxFit.cover),
-                      //elevation: 5,
+                        child: Image.asset('assets/desktop.png',
+                            fit: BoxFit.cover),
+                        //elevation: 5,
                       ),
                     ),
                   ),
@@ -143,10 +158,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Card(
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => AllProducts()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AllProducts()));
                         },
-                      child: Image.asset('assets/accessories.png',fit: BoxFit.cover),
-                      //elevation: 5,
+                        child: Image.asset('assets/accessories.png',
+                            fit: BoxFit.cover),
+                        //elevation: 5,
                       ),
                     ),
                   ),
