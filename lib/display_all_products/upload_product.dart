@@ -229,6 +229,7 @@ class _uploadProduct extends State<uploadProduct> {
                       hintText: 'Price',
                     ),
                   ),
+                  const SizedBox(height: 20.0),
                   Row(children: <Widget>[
                     Flexible(
                         flex: 2,
@@ -259,6 +260,7 @@ class _uploadProduct extends State<uploadProduct> {
                       }).toList(),
                     ))
                   ]),
+                  const SizedBox(height: 20.0),
                   Row(children: <Widget>[
                     Flexible(
                         flex: 2,
@@ -289,12 +291,14 @@ class _uploadProduct extends State<uploadProduct> {
                       }).toList(),
                     ))
                   ]),
+                  const SizedBox(height: 20.0),
                   TextFormField(
                     controller: zipCode,
                     decoration: const InputDecoration(
                       hintText: 'Zip Code',
                     ),
                   ),
+                  const SizedBox(height: 20.0),
                   ElevatedButton(
                       onPressed: () async {
                         if (imageFile != null) {
