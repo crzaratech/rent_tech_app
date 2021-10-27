@@ -166,7 +166,7 @@ class _uploadProduct extends State<uploadProduct> {
             margin: EdgeInsets.all(15.0),
             height: 180.0,
             width: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.rectangle,
               color: Colors.lightBlueAccent,
             ),
