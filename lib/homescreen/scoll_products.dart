@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rent_tech/displaya_all_products/allproducts.dart';
-import 'package:rent_tech/displaya_all_products/allproducts.dart';
+import 'package:rent_tech/display_all_products/allproducts.dart';
+import 'package:rent_tech/display_all_products/allproducts.dart';
 import 'package:rent_tech/productScreens/accessoriesForRent.dart';
 import 'package:rent_tech/productScreens/desktopsForRent.dart';
 import 'package:rent_tech/productScreens/laptopsForRent.dart';
