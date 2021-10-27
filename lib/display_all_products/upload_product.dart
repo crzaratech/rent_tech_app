@@ -34,6 +34,8 @@ class _uploadProduct extends State<uploadProduct> {
   String? pId;
   String? pTypesValue;
   String? conditionValue;
+  final List<String> product_types = ['Phone', 'Laptop', 'Desktop', 'Charger'];
+  final List<String> product_condition = ['Excellent', 'Moderate', 'Poor'];
 
 //radio button list
 
@@ -141,7 +143,8 @@ class _uploadProduct extends State<uploadProduct> {
         'Product_Name': productName.text,
         'Product_Price': price.text,
         'is_available': isAvailable,
-        'pType': pTypesValue,
+        'condition': conditionValue,
+        'zip_code': zipCode.text,
       });
       //Navigator.canPop(context) ? Navigator.pop(context) : null;
       imageFile = null;
@@ -248,8 +251,7 @@ class _uploadProduct extends State<uploadProduct> {
                           conditionValue = newValue!;
                         });
                       },
-                      items: <String>['Excellent', 'Moderate', 'Poor']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: product_condition.map((value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
@@ -279,8 +281,7 @@ class _uploadProduct extends State<uploadProduct> {
                           pTypesValue = newValue!;
                         });
                       },
-                      items: <String>['Phone', 'Laptop', 'Desktop', 'Charger']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: product_types.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
