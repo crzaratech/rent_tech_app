@@ -188,7 +188,7 @@ class _AllProductsState extends State<AllProducts> {
                             return GestureDetector(
                               
                               onTap: (){
-                                documentID = snapshot.data!.docs[index].get("product_id");
+                                documentID = snapshot.data!.docs[index].id;
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => BuyProduct(productID: documentID,)));
                               },
                               child: gridViewWidget(

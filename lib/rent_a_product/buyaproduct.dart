@@ -11,13 +11,47 @@ class BuyProduct extends StatefulWidget {
 
 class _BuyProductState extends State<BuyProduct> {
   @override
+  bool isAvailable = false;
   Widget build(BuildContext context) {
     return Scaffold(
-      // body: StreamBuilder(
-      //   stream: FirebaseFirestore.instance.collection("Products"),
-      //
-      //   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {  },
-      // )
+      body: StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance.collection("Products").doc(widget.productID).snapshots(),
+        builder: (context, snapshot){
+          if(!snapshot.hasData){
+            return new CircularProgressIndicator();
+          }
+          var document = snapshot.data!.data();
+          var value = document!['Product_Name'];
+          var imgurl = document['Image'];
+          return Scaffold(
+            body: Column(
+              children: <Widget>[
+                Container(
+                  child: Image.network(imgurl),
+                ),
+                Container(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("$value"),
+
+                      ElevatedButton(
+                          onPressed: (){
+                            FirebaseFirestore.instance.collection("Products").doc(widget.productID).update(
+                                {
+                                  'is_available': isAvailable,
+                                });
+                          },
+                          child: Text("Rent $value")),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          );
+
+        },
+      )
     );
   }
 }

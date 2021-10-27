@@ -27,8 +27,11 @@ class _uploadProduct extends State<uploadProduct> {
   String? productCondition;
   bool isAvailable = true;
   late TextEditingController productName = TextEditingController(text:'');
+  late TextEditingController price = TextEditingController(text:'');
   pTypes? _productTypes ;
   String? pId;
+
+
 
 //radio button list
 
@@ -137,13 +140,14 @@ class _uploadProduct extends State<uploadProduct> {
       await ref.putFile(imageFile!);
       imageUrl = await ref.getDownloadURL();
       FirebaseFirestore.instance.collection('Products').doc().set({
-        'product_id': FirebaseFirestore.instance.collection('Products').doc().id,
+
         'createdAt': DateTime.now(),
-        'id': AuthService().getCurrentUser(),
+        'fromUserID': AuthService().getCurrentUser(),
         'email': AuthService().getCurrentUserEmail(),
         'Image': imageUrl,
        // 'product_Id' :
         'Product_Name' : productName.text,
+        'Product_Price' : price.text,
         'is_available': isAvailable,
         'pType': _productTypes.toString().split('.').last,
 
@@ -229,8 +233,9 @@ class _uploadProduct extends State<uploadProduct> {
                   ),
                 ),
                 TextFormField(
+                  controller: price,
                   decoration: const InputDecoration(
-                    hintText: 'Condition',
+                    hintText: 'Price',
                   ),
                 ),
 
