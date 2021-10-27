@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:rent_tech/models/products.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
-import 'package:rent_tech/models/myuser.dart';
+import 'package:rent_tech/rent_a_product/buyaproduct.dart';
+
 
 class AllProducts extends StatefulWidget {
   @override
@@ -18,10 +19,11 @@ class AllProducts extends StatefulWidget {
 
 class _AllProductsState extends State<AllProducts> {
   final AuthService _auth = AuthService();
+  final Products _fsmanage = Products();
   File? imageFile;
   String? imageUrl;
-
-
+  var documentID;
+ 
   void _getFromGallery() async{
     XFile? pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -146,11 +148,13 @@ class _AllProductsState extends State<AllProducts> {
         crossAxisSpacing: 1,
       children: [
         Container(
-          padding: EdgeInsets.all(10),
+
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(0),
           child: GestureDetector(
             onTap: (){},
             child: Center(
-              child: Image.network(img, fit: BoxFit.fill,),
+              child: Image.network(img, fit: BoxFit.fitHeight,),
             ),
           ),
           color: Colors.white,
@@ -165,33 +169,7 @@ class _AllProductsState extends State<AllProducts> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.blue[50],
-        appBar: AppBar(
 
-          backgroundColor: Colors.white,
-          title: Text("Product X",style: TextStyle(
-            color: Colors.black,
-          ),),
-
-          actions: <Widget>[
-            FlatButton.icon(
-              icon: Icon(Icons.add_a_photo_outlined),
-              label: Text('add imgs'),
-              onPressed: () async {
-                if(imageFile != null){
-                  _upload_images();
-                }
-              },
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.lightBlue,
-          onPressed: (){
-            _showImageDialog();
-          },
-          child: const Icon(Icons.camera_enhance),
-        ),
-        
         body:
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance.collection('Products').orderBy("createdAt",descending: true).snapshots(),
@@ -204,12 +182,19 @@ class _AllProductsState extends State<AllProducts> {
                       return GridView.builder(
                         itemCount: snapshot.data!.docs.length,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3
+                            crossAxisCount: 2
                           ),
                           itemBuilder: (BuildContext context, int index){
-                            return gridViewWidget(
-                                snapshot.data!.docs[index]['Image'],
+                            return GestureDetector(
+                              
+                              onTap: (){
+                                documentID = snapshot.data!.docs[index].id;
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => BuyProduct(productID: documentID,)));
+                              },
+                              child: gridViewWidget(
+                                  snapshot.data!.docs[index]['Image'],
 
+                              ),
                             );
                     });
                     }
@@ -219,7 +204,7 @@ class _AllProductsState extends State<AllProducts> {
                     );
                   }
                   return Center(
-                    child: Text('Something went wrong'),
+                    child: Text('No Products in database!'),
                   );
                   }
 
