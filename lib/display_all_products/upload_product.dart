@@ -231,10 +231,10 @@ class _uploadProduct extends State<uploadProduct> {
                   ),
                   const SizedBox(height: 20.0),
                   Row(children: <Widget>[
-                    Flexible(
+                    const Flexible(
                         flex: 2,
                         child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
+                            padding: EdgeInsets.only(right: 50.0),
                             child: Text('Condition'))),
                     Flexible(
                         child: DropdownButton<String>(
@@ -262,10 +262,10 @@ class _uploadProduct extends State<uploadProduct> {
                   ]),
                   const SizedBox(height: 20.0),
                   Row(children: <Widget>[
-                    Flexible(
+                    const Flexible(
                         flex: 2,
                         child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
+                            padding: EdgeInsets.only(right: 30.0),
                             child: Text('Type of device'))),
                     Flexible(
                         child: DropdownButton<String>(
