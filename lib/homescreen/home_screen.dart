@@ -19,17 +19,29 @@ class _HomeScreenState extends State<HomeScreen> {
   final AuthService _auth = AuthService();
   int _currentIndex = 0;
 
-  final tabs = [
-    Center(child: ProductTypes()),
-    Center(child: AllProducts()),
-    Center(child: uploadProduct()),
-    Center(child: Text('Setting')),
+  // final List<Widget> _widgetOptions = <Widget>[
+  //   ProductTypes(),
+  //   AllProducts(),
+  //   uploadProduct(),
+  //   const Text('Setting'),
+  // ];
+  List<GlobalKey<NavigatorState>> _navigatorKeys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>()
   ];
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        final isFirstRouteInCurrentTab =
+            !await _navigatorKeys[_currentIndex].currentState!.maybePop();
+
+        // let system handle back button if we're on the first route
+        return isFirstRouteInCurrentTab;
+      },
+      child: Scaffold(
         backgroundColor: Colors.blue[50],
         appBar: AppBar(
           backgroundColor: Colors.white,
@@ -58,22 +70,60 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.blueGrey,
+            unselectedItemColor: Colors.blueGrey,
             selectedItemColor: Colors.lightBlueAccent,
-
             currentIndex: _currentIndex,
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(icon: Icon(Icons.border_all_rounded), label: 'All Products'),
-              BottomNavigationBarItem(icon: Icon(Icons.add_circle), label: 'Add Product'),
-              BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.border_all_rounded), label: 'All Products'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.add_circle), label: 'Add Product'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), label: 'Settings'),
             ],
             onTap: (index) {
               setState(() {
                 _currentIndex = index;
               });
             }),
-        body: tabs[_currentIndex],
+        body: Stack(
+          children: [
+            _buildOffstageNavigator(0),
+            _buildOffstageNavigator(1),
+            _buildOffstageNavigator(2),
+            _buildOffstageNavigator(3),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Map<String, WidgetBuilder> _routeBuilders(BuildContext context, int index) {
+    return {
+      '/': (context) {
+        return [
+          ProductTypes(),
+          AllProducts(),
+          uploadProduct(),
+          const Text('Setting'),
+        ].elementAt(index);
+      },
+    };
+  }
+
+  Widget _buildOffstageNavigator(int index) {
+    var routeBuilders = _routeBuilders(context, index);
+
+    return Offstage(
+      offstage: _currentIndex != index,
+      child: Navigator(
+        key: _navigatorKeys[index],
+        onGenerateRoute: (routeSettings) {
+          return MaterialPageRoute(
+            builder: (context) => routeBuilders[routeSettings.name]!(context),
+          );
+        },
       ),
     );
   }
