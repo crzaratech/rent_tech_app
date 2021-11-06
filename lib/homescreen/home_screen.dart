@@ -19,12 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final AuthService _auth = AuthService();
   int _currentIndex = 0;
 
-  // final List<Widget> _widgetOptions = <Widget>[
-  //   ProductTypes(),
-  //   AllProducts(),
-  //   uploadProduct(),
-  //   const Text('Setting'),
-  // ];
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -38,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
         final isFirstRouteInCurrentTab =
             !await _navigatorKeys[_currentIndex].currentState!.maybePop();
 
-        // let system handle back button if we're on the first route
         return isFirstRouteInCurrentTab;
       },
       child: Scaffold(
@@ -128,3 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+
+//
+// []-[Page3]
+// [AllProducts] 
