@@ -142,6 +142,7 @@ class _uploadProduct extends State<uploadProduct> {
         // 'product_Id' :
         'Product_Name': productName.text,
         'Product_Price': price.text,
+        'Product_Type': pTypesValue,
         'is_available': isAvailable,
         'condition': conditionValue,
         'zip_code': zipCode.text,
