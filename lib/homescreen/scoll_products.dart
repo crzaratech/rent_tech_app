@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rent_tech/display_all_products/allproducts.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rent_tech/display_all_products/allproducts.dart';
 import 'package:rent_tech/productScreens/accessoriesForRent.dart';
 import 'package:rent_tech/productScreens/desktopsForRent.dart';
@@ -12,8 +14,42 @@ class ProductTypes extends StatefulWidget {
 }
 
 class _ProductTypes extends State<ProductTypes> {
+  int count = 0;
+  countDocuments() async {//'is_available', isEqualTo: true
+    QuerySnapshot myDoc2 =
+        await FirebaseFirestore.instance.collection('Products')
+        .where("is_available", isEqualTo: true).get();
+    List<DocumentSnapshot> myDocCount2 = myDoc2.docs;
+    //this.placeCount = myDocCount2.length;
+    setState(() {
+      count = myDocCount2.length;
+    });
+    print(count);
+
+    // Count of Documents in Collection
+  }
+
   @override
+  void initState() {
+    countDocuments();
+    super.initState();
+  }
+
+  //final int documents = await FirebaseFirestore.instance.collection('products').snapshots().length;
+  /* countDocuments() async {
+   // FirebaseFirestore.instance.collection('product').snapshots().l
+ //final String dc =  FirebaseFirestore.instance.collection('products').snapshots().length.toString();
+//final QuerySnapshot qSnap = await Firestore.instance.collection('products').getDocuments();
+//final int documents = qSnap.documents.lengt;
+QuerySnapshot productCollection = await 
+FirebaseFirestore.instance.collection('products').get();
+int productCount = productCollection.size;
+print(productCount);
+  }
+  */
+
   Widget build(BuildContext context) {
+    //count;
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
@@ -58,16 +94,21 @@ class _ProductTypes extends State<ProductTypes> {
                 ),
               ),
               Container(
+                //String dc = FirebaseFirestore.instance.collection('products').snapshots().length.toString(),
                 padding: EdgeInsets.fromLTRB(20, 1, 20, 20),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    "2 items",
+                    //countDocuments(),
+                    // FirebaseFirestore.instance.collection('products').snapshots().length;
+
+                    ' ${this.count} items ',
+
                     style:
                         TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                   ),
                 ),
-              ),
+              ), // countDocuments(),
               Container(
                 padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                 height: 220,
