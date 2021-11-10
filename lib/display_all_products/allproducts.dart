@@ -23,7 +23,7 @@ class _AllProductsState extends State<AllProducts> {
   File? imageFile;
   String? imageUrl;
   var documentID;
- 
+
   void _getFromGallery() async{
     XFile? pickedFile = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -140,12 +140,13 @@ class _AllProductsState extends State<AllProducts> {
     }
   }
 
-  Widget gridViewWidget(String img){
+  Widget gridViewWidget(String img,String name, String price){
+
     return GridView.count(
-        primary: false,
-        padding: EdgeInsets.all(5),
-        crossAxisCount: 1,
-        crossAxisSpacing: 1,
+      primary: false,
+      padding: EdgeInsets.all(5),
+      crossAxisCount: 1,
+      crossAxisSpacing: 1,
       children: [
         Container(
 
@@ -153,16 +154,65 @@ class _AllProductsState extends State<AllProducts> {
           padding: EdgeInsets.all(0),
           child: GestureDetector(
             onTap: (){},
-            child: Center(
-              child: Image.network(img, fit: BoxFit.fitHeight,),
+            child: Padding(
+              padding: EdgeInsets.all(2.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    image: DecorationImage(
+                      image: NetworkImage(img),
+                      fit: BoxFit.contain,
+                    ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      gradient: new LinearGradient(
+                        colors: [
+                          Colors.black,
+                          const Color(0x19000000),
+                        ],
+                          begin: const FractionalOffset(0.0, 1.0),
+                          end: const FractionalOffset(0.0, 0.0),
+                          stops: [0.0, 1.0],
+                          tileMode: TileMode.clamp),
+                      ),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            name,
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Colors.white),
+                          ),
+                        
+                          Text(
+                            '\$${price}/hr',
+                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                    ),
+                  ),
+                ),
+              ),
+              //child: Image.network(img),
             ),
           ),
-          color: Colors.white,
-        )
-      ],
 
+          //color: Colors.white,
+        ],
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -171,45 +221,47 @@ class _AllProductsState extends State<AllProducts> {
         backgroundColor: Colors.blue[50],
 
         body:
-              StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('Products').orderBy("createdAt",descending: true).snapshots(),
-                  builder: (context, snapshot){
-                  if(snapshot.connectionState == ConnectionState.waiting){
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  else if(snapshot.connectionState == ConnectionState.active){
-                    if(snapshot.data!.docs.isNotEmpty){
-                      return GridView.builder(
-                        itemCount: snapshot.data!.docs.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2
+        StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('Products').where('is_available', isEqualTo: true).snapshots(),
+            builder: (context, snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Center(child: CircularProgressIndicator());
+              }
+              else if(snapshot.connectionState == ConnectionState.active){
+                if(snapshot.data!.docs.isNotEmpty){
+                  return GridView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2
+                      ),
+                      itemBuilder: (BuildContext context, int index){
+                        return GestureDetector(
+
+                          onTap: (){
+                            documentID = snapshot.data!.docs[index].id;
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => BuyProduct(productID: documentID,)));
+                          },
+                          child: gridViewWidget(
+                            snapshot.data!.docs[index]['Image'],
+                            snapshot.data!.docs[index]['Product_Name'],
+                            snapshot.data!.docs[index]['Product_Price'],
+
                           ),
-                          itemBuilder: (BuildContext context, int index){
-                            return GestureDetector(
-                              
-                              onTap: (){
-                                documentID = snapshot.data!.docs[index].id;
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => BuyProduct(productID: documentID,)));
-                              },
-                              child: gridViewWidget(
-                                  snapshot.data!.docs[index]['Image'],
-
-                              ),
-                            );
-                    });
-                    }
-                  }else{
-                    return Center(
-                      child: Text('There is no Data to get'),
-                    );
-                  }
-                  return Center(
-                    child: Text('No Products in database!'),
-                  );
-                  }
+                        );
+                      });
+                }
+              }else{
+                return Center(
+                  child: Text('There is no Data to get'),
+                );
+              }
+              return Center(
+                child: Text('No Products in database!'),
+              );
+            }
 
 
-              ),
+        ),
 
 
 
