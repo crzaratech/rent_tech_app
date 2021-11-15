@@ -23,9 +23,11 @@ class _userSettings extends State<userSettings> {
                     content: const Text('Are you sure you want to log out?'),
                     actions: <Widget>[
                       TextButton(
-                          onPressed: () => {}, child: const Text('Cancel')),
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel')),
                       TextButton(
                           onPressed: () async {
+                            Navigator.pop(context, 'OK');
                             await FirebaseAuth.instance.signOut();
                           },
                           child: const Text('Log out'))
