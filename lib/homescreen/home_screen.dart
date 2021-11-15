@@ -10,6 +10,8 @@ import 'package:rent_tech/productScreens/laptopsForRent.dart';
 import 'package:rent_tech/display_all_products/upload_product.dart';
 import 'package:rent_tech/homescreen/scoll_products.dart';
 import 'package:rent_tech/display_all_products/rentedscreen.dart';
+import 'package:rent_tech/homescreen/settings_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -23,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>()
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -72,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(Icons.border_all_rounded), label: 'All Products'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.add_circle), label: 'Add Product'),
-                   BottomNavigationBarItem(
+              BottomNavigationBarItem(
                   icon: Icon(Icons.shopping_cart), label: 'Rented'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'Settings'),
@@ -88,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _buildOffstageNavigator(1),
             _buildOffstageNavigator(2),
             _buildOffstageNavigator(3),
+            _buildOffstageNavigator(4),
           ],
         ),
       ),
@@ -102,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
           AllProducts(),
           uploadProduct(),
           rentedproducts(),
-          const Text('Setting'),
+          userSettings(),
         ].elementAt(index);
       },
     };
