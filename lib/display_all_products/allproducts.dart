@@ -149,35 +149,36 @@ class _AllProductsState extends State<AllProducts> {
       crossAxisSpacing: 1,
       children: [
         Container(
-
           alignment: Alignment.center,
           padding: EdgeInsets.all(0),
           child: GestureDetector(
-            onTap: (){},
+            onTap: () {},
+            child: IgnorePointer(
             child: Padding(
               padding: EdgeInsets.all(2.0),
               child: Container(
                 decoration: BoxDecoration(
+                  color: Colors.transparent,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(Radius.circular(15.0)),
                     image: DecorationImage(
                       image: NetworkImage(img),
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(0),
+                  padding: const EdgeInsets.all(0),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                      gradient: new LinearGradient(
+                      gradient: LinearGradient(
                         colors: [
                           Colors.black,
-                          const Color(0x19000000),
+                          Color(0x19000000),
                         ],
-                          begin: const FractionalOffset(0.0, 1.0),
-                          end: const FractionalOffset(0.0, 0.0),
+                          begin: FractionalOffset(0.0, 1.0),
+                          end: FractionalOffset(0.0, 0.0),
                           stops: [0.0, 1.0],
                           tileMode: TileMode.clamp),
                       ),
@@ -185,14 +186,12 @@ class _AllProductsState extends State<AllProducts> {
                       padding: EdgeInsets.all(10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
                             name,
                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Colors.white),
                           ),
-                        
                           Text(
                             '\$${price}/hr',
                             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500,color: Colors.white),
@@ -204,11 +203,9 @@ class _AllProductsState extends State<AllProducts> {
                   ),
                 ),
               ),
-              //child: Image.network(img),
+            ),
             ),
           ),
-
-          //color: Colors.white,
         ],
     );
   }
@@ -236,7 +233,6 @@ class _AllProductsState extends State<AllProducts> {
                       ),
                       itemBuilder: (BuildContext context, int index){
                         return GestureDetector(
-
                           onTap: (){
                             documentID = snapshot.data!.docs[index].id;
                             Navigator.push(context, MaterialPageRoute(builder: (context) => BuyProduct(productID: documentID,)));
@@ -245,7 +241,6 @@ class _AllProductsState extends State<AllProducts> {
                             snapshot.data!.docs[index]['Image'],
                             snapshot.data!.docs[index]['Product_Name'],
                             snapshot.data!.docs[index]['Product_Price'],
-
                           ),
                         );
                       });
