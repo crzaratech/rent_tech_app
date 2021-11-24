@@ -10,6 +10,8 @@ import 'package:rent_tech/productScreens/laptopsForRent.dart';
 import 'package:rent_tech/display_all_products/upload_product.dart';
 import 'package:rent_tech/homescreen/scoll_products.dart';
 import 'package:rent_tech/display_all_products/rentedscreen.dart';
+import 'package:rent_tech/homescreen/settings_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -23,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
-    GlobalKey<NavigatorState>()
+    GlobalKey<NavigatorState>(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -46,20 +48,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actions: <Widget>[
             TextButton.icon(
-              icon: Icon(
-                Icons.person,
-                color: Colors.black,
-              ),
-              label: Text(
-                'logout',
-                style: TextStyle(
+                icon: Icon(
+                  Icons.shopping_cart,
                   color: Colors.black,
                 ),
-              ),
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-              },
-            ),
+                label: Text(
+                  'Cart',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => rentedproducts()),
+                  );
+                }),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -72,8 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(Icons.border_all_rounded), label: 'All Products'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.add_circle), label: 'Add Product'),
-                   BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_cart), label: 'Rented'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'Settings'),
             ],
@@ -101,8 +103,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ProductTypes(),
           AllProducts(),
           uploadProduct(),
-          rentedproducts(),
-          const Text('Setting'),
+          userSettings(),
         ].elementAt(index);
       },
     };
