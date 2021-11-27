@@ -196,13 +196,6 @@ class _uploadProduct extends State<uploadProduct> {
                         keyboardType: const TextInputType.numberWithOptions(
                           decimal: true,
                         ),
-                        // validator: (value) {
-                        //   if (_isNumeric(value!) == true) {
-                        //     return 'Valid';
-                        //   } else {
-                        //     return null;
-                        //   }
-                        // },
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Price',
@@ -317,6 +310,49 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 20.0),
+                      Container(
+                        padding: EdgeInsets.all(20.0),
+                        margin: EdgeInsets.all(15.0),
+                        height: 180.0,
+                        width: double.infinity,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          color: Colors.lightBlueAccent,
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            CircleAvatar(
+                                radius: 40,
+                                child: imageFile != null
+                                    ? ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Image.file(
+                                          imageFile!,
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.fitHeight,
+                                        ),
+                                      )
+                                    : Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        width: 100,
+                                        height: 100,
+                                        child: Icon(
+                                          Icons.camera_alt,
+                                          color: Colors.grey[800],
+                                        ),
+                                      )),
+                            ElevatedButton(
+                                onPressed: () {
+                                  _showImageDialog();
+                                },
+                                child: Text("Add images")),
+                          ],
+                        ),
+                      ),
                       ElevatedButton(
                           onPressed: () async {
                             if (imageFile != null) {
@@ -327,7 +363,7 @@ class _uploadProduct extends State<uploadProduct> {
                                 MaterialPageRoute(
                                     builder: (context) => HomeScreen()));
                           },
-                          child: Text("Make Available to Rent!"))
+                          child: const Text("Upload Product"))
                     ],
                   ),
                 ),
@@ -337,47 +373,3 @@ class _uploadProduct extends State<uploadProduct> {
         ));
   }
 }
-
-
-  // Container(
-  //               padding: EdgeInsets.all(20.0),
-  //               margin: EdgeInsets.all(15.0),
-  //               height: 180.0,
-  //               width: double.infinity,
-  //               decoration: const BoxDecoration(
-  //                 shape: BoxShape.rectangle,
-  //                 color: Colors.lightBlueAccent,
-  //               ),
-  //               child: Column(
-  //                 children: <Widget>[
-  //                   CircleAvatar(
-  //                       radius: 40,
-  //                       child: imageFile != null
-  //                           ? ClipRRect(
-  //                               borderRadius: BorderRadius.circular(50),
-  //                               child: Image.file(
-  //                                 imageFile!,
-  //                                 width: 100,
-  //                                 height: 100,
-  //                                 fit: BoxFit.fitHeight,
-  //                               ),
-  //                             )
-  //                           : Container(
-  //                               decoration: BoxDecoration(
-  //                                   color: Colors.grey[200],
-  //                                   borderRadius: BorderRadius.circular(50)),
-  //                               width: 100,
-  //                               height: 100,
-  //                               child: Icon(
-  //                                 Icons.camera_alt,
-  //                                 color: Colors.grey[800],
-  //                               ),
-  //                             )),
-  //                   ElevatedButton(
-  //                       onPressed: () {
-  //                         _showImageDialog();
-  //                       },
-  //                       child: Text("Add images")),
-  //                 ],
-  //               ),
-  //             ),
