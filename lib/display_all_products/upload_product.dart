@@ -170,7 +170,9 @@ class _uploadProduct extends State<uploadProduct> {
     return Scaffold(
         backgroundColor: Colors.blue[50],
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            _showImageDialog();
+          },
           child: const Icon(Icons.camera_alt),
           backgroundColor: Colors.blue,
         ),
@@ -327,6 +329,28 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 20.0),
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (imageFile != null) {
+                              _upload_images();
+                            }
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()));
+                          },
+                          child: const Text("Upload Product"))
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
+  }
+}
+
+
 
                       // Container(
                       //   padding: EdgeInsets.all(20.0),
@@ -371,23 +395,3 @@ class _uploadProduct extends State<uploadProduct> {
                       //     ],
                       //   ),
                       // ),
-                      ElevatedButton(
-                          onPressed: () async {
-                            if (imageFile != null) {
-                              _upload_images();
-                            }
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
-                          },
-                          child: const Text("Upload Product"))
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
-        ));
-  }
-}
