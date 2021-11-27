@@ -36,7 +36,8 @@ class _uploadProduct extends State<uploadProduct> {
   String? conditionValue;
   final List<String> product_types = ['Phone', 'Laptop', 'Desktop', 'Charger'];
   final List<String> product_condition = ['Excellent', 'Moderate', 'Poor'];
-
+  final List<String> product_time_types = ['hour', 'day', 'week'];
+  String? product_time;
 //radio button list
 
   void _getFromGallery() async {
@@ -154,6 +155,13 @@ class _uploadProduct extends State<uploadProduct> {
     }
   }
 
+  bool _isNumeric(String value) {
+    if (value == null) {
+      return false;
+    }
+    return double.tryParse(value) != null;
+  }
+
   @override
   Widget build(BuildContext context) {
     final _productfilldata = GlobalKey<FormState>();
@@ -163,53 +171,6 @@ class _uploadProduct extends State<uploadProduct> {
           child: Column(
             children: <Widget>[
               //add images container
-              Container(
-                padding: EdgeInsets.all(20.0),
-                margin: EdgeInsets.all(15.0),
-                height: 180.0,
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: Colors.lightBlueAccent,
-                ),
-                child: Column(
-                  children: <Widget>[
-                    CircleAvatar(
-                        radius: 40,
-                        child: imageFile != null
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(50),
-                                child: Image.file(
-                                  imageFile!,
-                                  width: 100,
-                                  height: 100,
-                                  fit: BoxFit.fitHeight,
-                                ),
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: BorderRadius.circular(50)),
-                                width: 100,
-                                height: 100,
-                                child: Icon(
-                                  Icons.camera_alt,
-                                  color: Colors.grey[800],
-                                ),
-                              )),
-                    ElevatedButton(
-                        onPressed: () {
-                          _showImageDialog();
-                        },
-                        child: Text("Add images")),
-                  ],
-                ),
-              ),
-              Container(
-                child: Center(
-                  child: Text("Product Details"),
-                ),
-              ),
 
               //Form Container that contains information about the product
               Container(
@@ -222,15 +183,61 @@ class _uploadProduct extends State<uploadProduct> {
                       TextFormField(
                         controller: productName,
                         decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
                           hintText: 'Enter the product name',
                         ),
                       ),
+                      const SizedBox(height: 15),
                       TextFormField(
                         controller: price,
+                        maxLength: 6,
+                        keyboardType: TextInputType.numberWithOptions(
+                          decimal: true,
+                          signed: true,
+                        ),
+                        // validator: (value) {
+                        //   if (_isNumeric(value!) == true) {
+                        //     return 'Valid';
+                        //   } else {
+                        //     return null;
+                        //   }
+                        // },
                         decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
                           hintText: 'Price',
                         ),
                       ),
+                      const SizedBox(height: 20),
+                      Row(children: <Widget>[
+                        const Flexible(
+                            flex: 2,
+                            child: Padding(
+                                padding: EdgeInsets.only(right: 30.0),
+                                child: Text('Time'))),
+                        Flexible(
+                            child: DropdownButton<String>(
+                          value: product_time,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.blue),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.blue,
+                          ),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              product_time = newValue!;
+                            });
+                          },
+                          items: product_time_types.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        ))
+                      ]),
                       const SizedBox(height: 20.0),
                       Row(children: <Widget>[
                         const Flexible(
@@ -268,7 +275,7 @@ class _uploadProduct extends State<uploadProduct> {
                             flex: 2,
                             child: Padding(
                                 padding: EdgeInsets.only(right: 30.0),
-                                child: Text('Type of device'))),
+                                child: Text('Product Type'))),
                         Flexible(
                             child: DropdownButton<String>(
                           value: pTypesValue,
@@ -297,6 +304,7 @@ class _uploadProduct extends State<uploadProduct> {
                       TextFormField(
                         controller: zipCode,
                         decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
                           hintText: 'Zip Code',
                         ),
                       ),
@@ -321,3 +329,47 @@ class _uploadProduct extends State<uploadProduct> {
         ));
   }
 }
+
+
+  // Container(
+  //               padding: EdgeInsets.all(20.0),
+  //               margin: EdgeInsets.all(15.0),
+  //               height: 180.0,
+  //               width: double.infinity,
+  //               decoration: const BoxDecoration(
+  //                 shape: BoxShape.rectangle,
+  //                 color: Colors.lightBlueAccent,
+  //               ),
+  //               child: Column(
+  //                 children: <Widget>[
+  //                   CircleAvatar(
+  //                       radius: 40,
+  //                       child: imageFile != null
+  //                           ? ClipRRect(
+  //                               borderRadius: BorderRadius.circular(50),
+  //                               child: Image.file(
+  //                                 imageFile!,
+  //                                 width: 100,
+  //                                 height: 100,
+  //                                 fit: BoxFit.fitHeight,
+  //                               ),
+  //                             )
+  //                           : Container(
+  //                               decoration: BoxDecoration(
+  //                                   color: Colors.grey[200],
+  //                                   borderRadius: BorderRadius.circular(50)),
+  //                               width: 100,
+  //                               height: 100,
+  //                               child: Icon(
+  //                                 Icons.camera_alt,
+  //                                 color: Colors.grey[800],
+  //                               ),
+  //                             )),
+  //                   ElevatedButton(
+  //                       onPressed: () {
+  //                         _showImageDialog();
+  //                       },
+  //                       child: Text("Add images")),
+  //                 ],
+  //               ),
+  //             ),
