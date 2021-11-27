@@ -10,6 +10,8 @@ import 'dart:io';
 import 'package:rent_tech/display_all_products/allproducts.dart';
 import 'package:rent_tech/homescreen/home_screen.dart';
 
+import 'package:flutter/services.dart';
+
 class uploadProduct extends StatefulWidget {
   @override
   _uploadProduct createState() => _uploadProduct();
@@ -174,8 +176,8 @@ class _uploadProduct extends State<uploadProduct> {
 
               //Form Container that contains information about the product
               Container(
-                padding: EdgeInsets.all(15.0),
-                margin: EdgeInsets.all(10.0),
+                padding: const EdgeInsets.all(15.0),
+                margin: const EdgeInsets.all(10.0),
                 child: Form(
                   key: _productfilldata,
                   child: Column(
@@ -191,9 +193,8 @@ class _uploadProduct extends State<uploadProduct> {
                       TextFormField(
                         controller: price,
                         maxLength: 6,
-                        keyboardType: TextInputType.numberWithOptions(
+                        keyboardType: const TextInputType.numberWithOptions(
                           decimal: true,
-                          signed: true,
                         ),
                         // validator: (value) {
                         //   if (_isNumeric(value!) == true) {
@@ -303,8 +304,12 @@ class _uploadProduct extends State<uploadProduct> {
                       const SizedBox(height: 20.0),
                       TextFormField(
                         controller: zipCode,
-                        keyboardType: TextInputType.numberWithOptions(
-                          signed: true,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp("[.]")),
+                          FilteringTextInputFormatter.deny(RegExp("[,]"))
+                        ],
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: false,
                         ),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
