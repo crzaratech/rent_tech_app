@@ -303,6 +303,9 @@ class _uploadProduct extends State<uploadProduct> {
                       const SizedBox(height: 20.0),
                       TextFormField(
                         controller: zipCode,
+                        keyboardType: TextInputType.numberWithOptions(
+                          signed: true,
+                        ),
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: 'Zip Code',
