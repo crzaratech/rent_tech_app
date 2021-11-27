@@ -182,6 +182,18 @@ class _uploadProduct extends State<uploadProduct> {
                   key: _productfilldata,
                   child: Column(
                     children: <Widget>[
+                      Container(
+                          child: SizedBox(
+                              height: 200,
+                              child: Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                  child: Text("Card"),
+                                ),
+                              ))),
+                      const SizedBox(height: 15),
                       TextFormField(
                         controller: productName,
                         decoration: const InputDecoration(
@@ -310,49 +322,49 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 20.0),
-                      Container(
-                        padding: EdgeInsets.all(20.0),
-                        margin: EdgeInsets.all(15.0),
-                        height: 180.0,
-                        width: double.infinity,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          color: Colors.lightBlueAccent,
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            CircleAvatar(
-                                radius: 40,
-                                child: imageFile != null
-                                    ? ClipRRect(
-                                        borderRadius: BorderRadius.circular(50),
-                                        child: Image.file(
-                                          imageFile!,
-                                          width: 100,
-                                          height: 100,
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                      )
-                                    : Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius:
-                                                BorderRadius.circular(50)),
-                                        width: 100,
-                                        height: 100,
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.grey[800],
-                                        ),
-                                      )),
-                            ElevatedButton(
-                                onPressed: () {
-                                  _showImageDialog();
-                                },
-                                child: Text("Add images")),
-                          ],
-                        ),
-                      ),
+                      // Container(
+                      //   padding: EdgeInsets.all(20.0),
+                      //   margin: EdgeInsets.all(15.0),
+                      //   height: 180.0,
+                      //   width: double.infinity,
+                      //   decoration: const BoxDecoration(
+                      //     shape: BoxShape.rectangle,
+                      //     color: Colors.lightBlueAccent,
+                      //   ),
+                      //   child: Column(
+                      //     children: <Widget>[
+                      //       CircleAvatar(
+                      //           radius: 40,
+                      //           child: imageFile != null
+                      //               ? ClipRRect(
+                      //                   borderRadius: BorderRadius.circular(50),
+                      //                   child: Image.file(
+                      //                     imageFile!,
+                      //                     width: 100,
+                      //                     height: 100,
+                      //                     fit: BoxFit.fitHeight,
+                      //                   ),
+                      //                 )
+                      //               : Container(
+                      //                   decoration: BoxDecoration(
+                      //                       color: Colors.grey[200],
+                      //                       borderRadius:
+                      //                           BorderRadius.circular(50)),
+                      //                   width: 100,
+                      //                   height: 100,
+                      //                   child: Icon(
+                      //                     Icons.camera_alt,
+                      //                     color: Colors.grey[800],
+                      //                   ),
+                      //                 )),
+                      //       ElevatedButton(
+                      //           onPressed: () {
+                      //             _showImageDialog();
+                      //           },
+                      //           child: Text("Add images")),
+                      //     ],
+                      //   ),
+                      // ),
                       ElevatedButton(
                           onPressed: () async {
                             if (imageFile != null) {
