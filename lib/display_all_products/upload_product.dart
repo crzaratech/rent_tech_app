@@ -169,6 +169,11 @@ class _uploadProduct extends State<uploadProduct> {
     final _productfilldata = GlobalKey<FormState>();
     return Scaffold(
         backgroundColor: Colors.blue[50],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: const Icon(Icons.camera_alt),
+          backgroundColor: Colors.blue,
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
@@ -322,6 +327,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 20.0),
+
                       // Container(
                       //   padding: EdgeInsets.all(20.0),
                       //   margin: EdgeInsets.all(15.0),
