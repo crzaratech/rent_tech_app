@@ -39,7 +39,7 @@ class _uploadProduct extends State<uploadProduct> {
   final List<String> product_types = ['Phone', 'Laptop', 'Desktop', 'Charger'];
   final List<String> product_condition = ['Excellent', 'Moderate', 'Poor'];
   final List<String> product_time_types = ['hour', 'day', 'week'];
-  String? product_time;
+  String? pTypesTime;
 //radio button list
 
   void _getFromGallery() async {
@@ -146,6 +146,7 @@ class _uploadProduct extends State<uploadProduct> {
         'Product_Name': productName.text,
         'Product_Price': price.text,
         'Product_Type': pTypesValue,
+        'Product_Time_Type': pTypesTime,
         'is_available': isAvailable,
         'condition': conditionValue,
         'zip_code': zipCode.text,
@@ -155,13 +156,6 @@ class _uploadProduct extends State<uploadProduct> {
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
     }
-  }
-
-  bool _isNumeric(String value) {
-    if (value == null) {
-      return false;
-    }
-    return double.tryParse(value) != null;
   }
 
   @override
@@ -179,8 +173,6 @@ class _uploadProduct extends State<uploadProduct> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              //add images container
-
               //Form Container that contains information about the product
               Container(
                 padding: const EdgeInsets.all(15.0),
@@ -201,6 +193,7 @@ class _uploadProduct extends State<uploadProduct> {
                                 ),
                               ))),
                       const SizedBox(height: 15),
+                      //product name
                       TextFormField(
                         controller: productName,
                         decoration: const InputDecoration(
@@ -209,6 +202,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 15),
+                      //price
                       TextFormField(
                         controller: price,
                         maxLength: 6,
@@ -221,6 +215,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      //type of timeframe(hour,etc)
                       Row(children: <Widget>[
                         const Flexible(
                             flex: 2,
@@ -229,7 +224,7 @@ class _uploadProduct extends State<uploadProduct> {
                                 child: Text('Time'))),
                         Flexible(
                             child: DropdownButton<String>(
-                          value: product_time,
+                          value: pTypesTime,
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 24,
                           elevation: 16,
@@ -240,7 +235,7 @@ class _uploadProduct extends State<uploadProduct> {
                           ),
                           onChanged: (String? newValue) {
                             setState(() {
-                              product_time = newValue!;
+                              pTypesTime = newValue!;
                             });
                           },
                           items: product_time_types.map((String value) {
@@ -252,6 +247,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ))
                       ]),
                       const SizedBox(height: 20.0),
+                      //dropdown condition
                       Row(children: <Widget>[
                         const Flexible(
                             flex: 2,
@@ -283,6 +279,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ))
                       ]),
                       const SizedBox(height: 20.0),
+                      //dropdown type of product
                       Row(children: <Widget>[
                         const Flexible(
                             flex: 2,
@@ -314,6 +311,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ))
                       ]),
                       const SizedBox(height: 20.0),
+                      //zip code
                       TextFormField(
                         controller: zipCode,
                         inputFormatters: [
@@ -329,6 +327,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 20.0),
+                      //Submit product bttn
                       ElevatedButton(
                           onPressed: () async {
                             if (imageFile != null) {
@@ -350,48 +349,46 @@ class _uploadProduct extends State<uploadProduct> {
   }
 }
 
-
-
-                      // Container(
-                      //   padding: EdgeInsets.all(20.0),
-                      //   margin: EdgeInsets.all(15.0),
-                      //   height: 180.0,
-                      //   width: double.infinity,
-                      //   decoration: const BoxDecoration(
-                      //     shape: BoxShape.rectangle,
-                      //     color: Colors.lightBlueAccent,
-                      //   ),
-                      //   child: Column(
-                      //     children: <Widget>[
-                      //       CircleAvatar(
-                      //           radius: 40,
-                      //           child: imageFile != null
-                      //               ? ClipRRect(
-                      //                   borderRadius: BorderRadius.circular(50),
-                      //                   child: Image.file(
-                      //                     imageFile!,
-                      //                     width: 100,
-                      //                     height: 100,
-                      //                     fit: BoxFit.fitHeight,
-                      //                   ),
-                      //                 )
-                      //               : Container(
-                      //                   decoration: BoxDecoration(
-                      //                       color: Colors.grey[200],
-                      //                       borderRadius:
-                      //                           BorderRadius.circular(50)),
-                      //                   width: 100,
-                      //                   height: 100,
-                      //                   child: Icon(
-                      //                     Icons.camera_alt,
-                      //                     color: Colors.grey[800],
-                      //                   ),
-                      //                 )),
-                      //       ElevatedButton(
-                      //           onPressed: () {
-                      //             _showImageDialog();
-                      //           },
-                      //           child: Text("Add images")),
-                      //     ],
-                      //   ),
-                      // ),
+// Container(
+//   padding: EdgeInsets.all(20.0),
+//   margin: EdgeInsets.all(15.0),
+//   height: 180.0,
+//   width: double.infinity,
+//   decoration: const BoxDecoration(
+//     shape: BoxShape.rectangle,
+//     color: Colors.lightBlueAccent,
+//   ),
+//   child: Column(
+//     children: <Widget>[
+//       CircleAvatar(
+//           radius: 40,
+//           child: imageFile != null
+//               ? ClipRRect(
+//                   borderRadius: BorderRadius.circular(50),
+//                   child: Image.file(
+//                     imageFile!,
+//                     width: 100,
+//                     height: 100,
+//                     fit: BoxFit.fitHeight,
+//                   ),
+//                 )
+//               : Container(
+//                   decoration: BoxDecoration(
+//                       color: Colors.grey[200],
+//                       borderRadius:
+//                           BorderRadius.circular(50)),
+//                   width: 100,
+//                   height: 100,
+//                   child: Icon(
+//                     Icons.camera_alt,
+//                     color: Colors.grey[800],
+//                   ),
+//                 )),
+//       ElevatedButton(
+//           onPressed: () {
+//             _showImageDialog();
+//           },
+//           child: Text("Add images")),
+//     ],
+//   ),
+// ),
