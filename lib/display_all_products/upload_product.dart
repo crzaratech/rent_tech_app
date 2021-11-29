@@ -193,9 +193,9 @@ class _uploadProduct extends State<uploadProduct> {
                                         fit: BoxFit.fitHeight,
                                       ),
                                     )
-                                  : Card(
+                                  : const Card(
                                       elevation: 5,
-                                      child: const Center(
+                                      child:  Center(
                                         child:
                                             Text("No image has been uploaded"),
                                       ),
