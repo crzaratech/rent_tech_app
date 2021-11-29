@@ -42,18 +42,8 @@ class _BuyProductState extends State<BuyProduct> {
                       //Use of SizedBox
                       height: 10,
                     ),
-                    /* ElevatedButton(
-                        onPressed: () {
-                          FirebaseFirestore.instance
-                              .collection("Products")
-                              .doc(widget.productID)
-                              .update({
-                            'is_available': isAvailable,
-                          });
-                        },
-                        child: Text("Rent $value")),*/
+                  
                     Row(
-                       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         SizedBox(width: 20),

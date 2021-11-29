@@ -9,7 +9,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
 import 'package:rent_tech/rent_a_product/buyaproduct.dart';
-import 'package:rent_tech/rent_a_product/checkout_screen.dart';
+import 'package:rent_tech/rent_a_product/checkoutscreen.dart';
 import 'package:rent_tech/returnscreen/return_product.dart';
 
 class shoppingcart extends StatefulWidget {

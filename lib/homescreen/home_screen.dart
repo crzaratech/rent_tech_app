@@ -7,12 +7,12 @@ import 'package:rent_tech/display_all_products/allproducts.dart';
 import 'package:rent_tech/productScreens/accessoriesForRent.dart';
 import 'package:rent_tech/productScreens/desktopsForRent.dart';
 import 'package:rent_tech/productScreens/laptopsForRent.dart';
-import 'package:rent_tech/display_all_products/upload_product.dart';
+import 'package:rent_tech/display_all_products/uploadproduct.dart';
 import 'package:rent_tech/homescreen/scoll_products.dart';
 import 'package:rent_tech/display_all_products/rentedscreen.dart';
 import 'package:rent_tech/homescreen/settings_screen.dart';
 import 'package:rent_tech/display_all_products/rentedscreen.dart';
-import 'package:rent_tech/rent_a_product/shopping_cart_product.dart';
+import 'package:rent_tech/rent_a_product/shoppingcartproduct.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
