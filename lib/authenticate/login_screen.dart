@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
       children: <Widget>[
         Text(
           'Email',
+          key: Key('email-txt'),
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
@@ -46,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ]),
           height: 60,
           child: TextField(
+             key: Key('email-input'),
             controller: _emailTextController,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: Colors.black87),
@@ -68,6 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
       children: <Widget>[
         Text(
           'Password',
+          key: Key('pwd-txt'),
           style: TextStyle(
               color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
@@ -83,6 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ]),
           height: 60,
           child: TextField(
+            key: Key('pwd-input'),
             controller: _pwTextController,
               obscureText: true,
               style: TextStyle(color: Colors.black87),
@@ -163,6 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
         color: Colors.white,
         child: Text(
           'Login',
+          key: Key('login-btn'),
           style: TextStyle(
               color: Color(0xff00bfff),
               fontSize: 18,
@@ -179,6 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
         widget.toggleView();
       },
       child: RichText(
+        key: Key('signup-txt'),
         text: TextSpan(children: [
           TextSpan(
               text: 'Don\'t have an Accout?',

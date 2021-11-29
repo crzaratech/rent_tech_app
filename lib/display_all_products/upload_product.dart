@@ -27,6 +27,7 @@ class _uploadProduct extends State<uploadProduct> {
   //product data
   String? productCondition;
   bool isAvailable = true;
+  bool isCart = false;
   late TextEditingController productName = TextEditingController(text: '');
   late TextEditingController price = TextEditingController(text: '');
   late TextEditingController zipCode = TextEditingController(text: '');
@@ -146,6 +147,7 @@ class _uploadProduct extends State<uploadProduct> {
         'is_available': isAvailable,
         'condition': conditionValue,
         'zip_code': zipCode.text,
+         'is_cart': isCart,
       });
       //Navigator.canPop(context) ? Navigator.pop(context) : null;
       imageFile = null;

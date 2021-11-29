@@ -37,6 +37,7 @@ class _userSettings extends State<userSettings> {
         child: Column(
       children: <Widget>[
         ElevatedButton(
+          key: Key('logout-btn'),
           onPressed: () => showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
@@ -47,6 +48,7 @@ class _userSettings extends State<userSettings> {
                           onPressed: () => Navigator.pop(context, 'Cancel'),
                           child: const Text('Cancel')),
                       TextButton(
+                        key: Key('logout-ok-btn'),
                           onPressed: () async {
                             Navigator.pop(context, 'OK');
                             await FirebaseAuth.instance.signOut();
