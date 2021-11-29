@@ -184,14 +184,24 @@ class _uploadProduct extends State<uploadProduct> {
                       Container(
                           child: SizedBox(
                               height: 200,
-                              child: Card(
-                                elevation: 5,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Center(
-                                  child: Text("Card"),
-                                ),
-                              ))),
+                              child: imageFile != null
+                                  ? Card(
+                                      child: Image.file(
+                                        imageFile!,
+                                        width: 400,
+                                        height: 200,
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    )
+                                  : Card(
+                                      elevation: 5,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: const Center(
+                                        child: Text("Card"),
+                                      ),
+                                    ))),
                       const SizedBox(height: 15),
                       //product name
                       TextFormField(
@@ -215,7 +225,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      //type of timeframe(hour,etc)
+                      //type of timeframe(hour,etc) add better description
                       Row(children: <Widget>[
                         const Flexible(
                             flex: 2,
@@ -247,7 +257,7 @@ class _uploadProduct extends State<uploadProduct> {
                         ))
                       ]),
                       const SizedBox(height: 20.0),
-                      //dropdown condition
+                      //dropdown condition #add condition of device
                       Row(children: <Widget>[
                         const Flexible(
                             flex: 2,
@@ -332,11 +342,23 @@ class _uploadProduct extends State<uploadProduct> {
                           onPressed: () async {
                             if (imageFile != null) {
                               _upload_images();
+                              //displays to user that product has been uploaded to firebase
+                              showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                          title: const Text('Product Upload'),
+                                          content: const Text(
+                                              'Product has been uploaded.'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () => {
+                                                      Navigator.pop(
+                                                          context, 'OK')
+                                                    },
+                                                child: const Text('Ok'))
+                                          ]));
                             }
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
                           },
                           child: const Text("Upload Product"))
                     ],
@@ -348,47 +370,3 @@ class _uploadProduct extends State<uploadProduct> {
         ));
   }
 }
-
-// Container(
-//   padding: EdgeInsets.all(20.0),
-//   margin: EdgeInsets.all(15.0),
-//   height: 180.0,
-//   width: double.infinity,
-//   decoration: const BoxDecoration(
-//     shape: BoxShape.rectangle,
-//     color: Colors.lightBlueAccent,
-//   ),
-//   child: Column(
-//     children: <Widget>[
-//       CircleAvatar(
-//           radius: 40,
-//           child: imageFile != null
-//               ? ClipRRect(
-//                   borderRadius: BorderRadius.circular(50),
-//                   child: Image.file(
-//                     imageFile!,
-//                     width: 100,
-//                     height: 100,
-//                     fit: BoxFit.fitHeight,
-//                   ),
-//                 )
-//               : Container(
-//                   decoration: BoxDecoration(
-//                       color: Colors.grey[200],
-//                       borderRadius:
-//                           BorderRadius.circular(50)),
-//                   width: 100,
-//                   height: 100,
-//                   child: Icon(
-//                     Icons.camera_alt,
-//                     color: Colors.grey[800],
-//                   ),
-//                 )),
-//       ElevatedButton(
-//           onPressed: () {
-//             _showImageDialog();
-//           },
-//           child: Text("Add images")),
-//     ],
-//   ),
-// ),
