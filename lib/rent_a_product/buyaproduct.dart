@@ -12,6 +12,7 @@ class BuyProduct extends StatefulWidget {
 
 class _BuyProductState extends State<BuyProduct> {
   @override
+  //varaibles to chnage the database
   bool isCart = true;
   bool isAvailable = false;
   Widget build(BuildContext context) {
@@ -58,6 +59,9 @@ class _BuyProductState extends State<BuyProduct> {
                                           .update({
                                         'is_available': isAvailable,
                                         'is_cart': isCart,
+                                        // use the variables you initialize
+                                        // us these varaibles to change the database 
+                                        //after you click the button
                                       });
                                     },
                                     child: Text(

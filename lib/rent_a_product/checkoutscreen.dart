@@ -12,6 +12,7 @@ class checkout extends StatefulWidget {
 
 class _checkoutState extends State<checkout> {
   @override  
+  //varaibles to chnage the database
   bool isAvailable2 = false;
   bool isCart2 = false;
   bool isCart = true;
@@ -75,6 +76,9 @@ class _checkoutState extends State<checkout> {
                                       .update({
                                     'is_available': isAvailable,
                                     'is_cart': isCart2,
+                                         // use the variables you initialize
+                                        // us these varaibles to change the database 
+                                        //after you click the button
                                   });
                                 },
                                 child: Text(

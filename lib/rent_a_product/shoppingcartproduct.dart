@@ -136,6 +136,8 @@ class _shoppingcart extends State<shoppingcart> {
                 .collection('Products')
                 .where('is_cart', isEqualTo: true)
                 .snapshots(),
+                // how to display all the items in the cart
+              
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
