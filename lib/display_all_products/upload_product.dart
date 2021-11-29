@@ -195,11 +195,9 @@ class _uploadProduct extends State<uploadProduct> {
                                     )
                                   : Card(
                                       elevation: 5,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
                                       child: const Center(
-                                        child: Text("Card"),
+                                        child:
+                                            Text("No image has been uploaded"),
                                       ),
                                     ))),
                       const SizedBox(height: 15),
