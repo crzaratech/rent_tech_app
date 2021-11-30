@@ -9,13 +9,15 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
 import 'package:rent_tech/rent_a_product/buyaproduct.dart';
+import 'package:rent_tech/rent_a_product/checkoutscreen.dart';
 import 'package:rent_tech/returnscreen/return_product.dart';
-class rentedproducts extends StatefulWidget {
+
+class shoppingcart extends StatefulWidget {
   @override
-  _rentedproducts createState() => _rentedproducts();
+  _shoppingcart createState() => _shoppingcart();
 }
 
-class _rentedproducts extends State<rentedproducts> {
+class _shoppingcart extends State<shoppingcart> {
   var documentID;
 
   int count = 0;
@@ -23,7 +25,7 @@ class _rentedproducts extends State<rentedproducts> {
     //'is_available', isEqualTo: true
     QuerySnapshot myDoc2 = await FirebaseFirestore.instance
         .collection('Products')
-        .where("is_available", isEqualTo: false)
+        .where("is_cart", isEqualTo: true)
         .get();
     List<DocumentSnapshot> myDocCount2 = myDoc2.docs;
     //this.placeCount = myDocCount2.length;
@@ -132,8 +134,10 @@ class _rentedproducts extends State<rentedproducts> {
         body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance
                 .collection('Products')
-                .where('is_available', isEqualTo: false)
+                .where('is_cart', isEqualTo: true)
                 .snapshots(),
+                // how to display all the items in the cart
+              
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(child: CircularProgressIndicator());
@@ -147,7 +151,7 @@ class _rentedproducts extends State<rentedproducts> {
                         return GestureDetector(
                            onTap: (){
                             documentID = snapshot.data!.docs[index].id;
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ReturnProduct(productID: documentID,)));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => checkout(productID: documentID,)));
                           },
                           child: gridViewWidget(
                             snapshot.data!.docs[index]['Image'],
