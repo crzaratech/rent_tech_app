@@ -1,17 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rent_tech/InitialScreens/forgotpassword_screen.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
-
-
+import 'package:rent_tech/authenticate/login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
-
   final Function toggleView;
-  RegisterScreen({ required this.toggleView});
+  RegisterScreen({required this.toggleView});
 
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -20,12 +17,13 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   //final FirebaseAuth _auth = FirebaseAuth.instance;
   final AuthService _auth = AuthService();
-  late TextEditingController _emailTextController = TextEditingController(text:'');
-  late TextEditingController _pwTextController = TextEditingController(text:'');
+  late TextEditingController _emailTextController =
+      TextEditingController(text: '');
+  late TextEditingController _pwTextController =
+      TextEditingController(text: '');
 
   bool isRememberMe = false;
   Widget buildEmail() {
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -46,6 +44,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ]),
           height: 60,
           child: TextField(
+            key: Key('email-input'),
               controller: _emailTextController,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(color: Colors.black87),
@@ -83,6 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ]),
           height: 60,
           child: TextField(
+            key: Key('pwd-input'),
               controller: _pwTextController,
               obscureText: true,
               style: TextStyle(color: Colors.black87),
@@ -104,7 +104,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       alignment: Alignment.centerRight,
       child: FlatButton(
         onPressed: () {
-          Navigator.push(context, new MaterialPageRoute(builder: (context) => new Forgotscreen()));
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => new Forgotscreen()));
         },
         padding: EdgeInsets.only(right: 0),
         child: Text(
@@ -136,7 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             Text(
               'Remember me',
               style:
-              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
           ],
         ));
@@ -148,21 +149,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
       width: double.infinity,
       child: RaisedButton(
         elevation: 5,
-        onPressed: () async{
-          try{
-            await _auth.registerWithEmailAndPassword(_emailTextController.text.trim(), _pwTextController.text.trim());
-
-          }catch(error){
+        onPressed: () async {
+          try {
+            await _auth.registerWithEmailAndPassword(
+                _emailTextController.text.trim(),
+                _pwTextController.text.trim());
+          } catch (error) {
             print(error);
           }
-
-
+          
         },
         padding: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         color: Colors.white,
         child: Text(
-          'Create Account',
+        'Create Account',
+          key: Key('create-btn'),
           style: TextStyle(
               color: Color(0xff00bfff),
               fontSize: 18,
@@ -173,10 +175,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Widget buildSignUpBtn() {
-    return GestureDetector(
+    return GestureDetector(  
+      key: Key('signin-txt'),
       onTap: () {
+        
         //Navigator.push(context, new MaterialPageRoute(builder: (context) => new SignupScreen()));
         widget.toggleView();
+      
       },
       child: RichText(
         text: TextSpan(children: [
@@ -213,11 +218,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Color(0x6600bfff),
-                          Color(0x9900bfff),
-                          Color(0xff00bfff),
-                          Color(0xff00bfff),
-                        ])),
+                      Color(0x6600bfff),
+                      Color(0x9900bfff),
+                      Color(0xff00bfff),
+                      Color(0xff00bfff),
+                    ])),
                 child: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(
                     horizontal: 25,

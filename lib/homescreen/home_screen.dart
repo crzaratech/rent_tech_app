@@ -7,11 +7,12 @@ import 'package:rent_tech/display_all_products/allproducts.dart';
 import 'package:rent_tech/productScreens/accessoriesForRent.dart';
 import 'package:rent_tech/productScreens/desktopsForRent.dart';
 import 'package:rent_tech/productScreens/laptopsForRent.dart';
-import 'package:rent_tech/display_all_products/upload_product.dart';
+import 'package:rent_tech/display_all_products/uploadproduct.dart';
 import 'package:rent_tech/homescreen/scoll_products.dart';
 import 'package:rent_tech/display_all_products/rentedscreen.dart';
 import 'package:rent_tech/homescreen/settings_screen.dart';
-
+import 'package:rent_tech/display_all_products/rentedscreen.dart';
+import 'package:rent_tech/rent_a_product/shoppingcartproduct.dart';
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   List<GlobalKey<NavigatorState>> _navigatorKeys = [
+    GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -54,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 label: Text(
                   'Cart',
+                    key: Key('cart-btn'),
                   style: TextStyle(
                     color: Colors.black,
                   ),
@@ -61,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => rentedproducts()),
+                    MaterialPageRoute(builder: (context) => shoppingcart()),
                   );
                 }),
           ],
@@ -70,12 +73,15 @@ class _HomeScreenState extends State<HomeScreen> {
             unselectedItemColor: Colors.blueGrey,
             selectedItemColor: Colors.lightBlueAccent,
             currentIndex: _currentIndex,
+             key: Key('bottom'),
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.border_all_rounded), label: 'All Products'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.add_circle), label: 'Add Product'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.timer), label: 'Rented Products'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'Settings'),
             ],
@@ -90,6 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _buildOffstageNavigator(1),
             _buildOffstageNavigator(2),
             _buildOffstageNavigator(3),
+            _buildOffstageNavigator(4),
           ],
         ),
       ),
@@ -103,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ProductTypes(),
           AllProducts(),
           uploadProduct(),
+          rentedproducts(),
           userSettings(),
         ].elementAt(index);
       },

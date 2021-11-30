@@ -115,6 +115,7 @@ print(productCount);
                 width: double.maxFinite,
                 child: Card(
                   child: GestureDetector(
+                   key:Key('laptop-pic'),
                     onTap: () {
                       Navigator.push(
                           context,

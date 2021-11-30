@@ -233,6 +233,7 @@ class _AllProductsState extends State<AllProducts> {
                       ),
                       itemBuilder: (BuildContext context, int index){
                         return GestureDetector(
+                          key: Key('product-btn'),
                           onTap: (){
                             documentID = snapshot.data!.docs[index].id;
                             Navigator.push(context, MaterialPageRoute(builder: (context) => BuyProduct(productID: documentID,)));
