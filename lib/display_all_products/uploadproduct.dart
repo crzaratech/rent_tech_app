@@ -254,12 +254,7 @@ class _uploadProduct extends State<uploadProduct> {
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 24,
                           elevation: 16,
-
                           style: const TextStyle(color: Colors.blue),
-                          // underline: Container(
-                          //   height: 2,
-                          //   color: Colors.blue,
-                          // ),
                           onChanged: (String? newValue) {
                             setState(() {
                               pTypesTime = newValue!;
@@ -272,7 +267,7 @@ class _uploadProduct extends State<uploadProduct> {
                             );
                           }).toList(),
                           validator: (value) => value == null
-                              ? ' Please fill in the time-rate you would be charging others.'
+                              ? ' Add time-rate you would be charging others.'
                               : null,
                         ))
                       ]),
@@ -303,7 +298,7 @@ class _uploadProduct extends State<uploadProduct> {
                             );
                           }).toList(),
                           validator: (value) => value == null
-                              ? ' Please fill in the condition of your product.'
+                              ? 'Add the condition of your product.'
                               : null,
                         ))
                       ]),
@@ -333,9 +328,8 @@ class _uploadProduct extends State<uploadProduct> {
                               child: Text(value),
                             );
                           }).toList(),
-                          validator: (value) => value == null
-                              ? ' Please fill in the type of product.'
-                              : null,
+                          validator: (value) =>
+                              value == null ? 'Add the type of product.' : null,
                         ))
                       ]),
                       const SizedBox(height: 20.0),
