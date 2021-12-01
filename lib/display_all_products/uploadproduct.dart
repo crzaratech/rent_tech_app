@@ -249,16 +249,17 @@ class _uploadProduct extends State<uploadProduct> {
                                 padding: EdgeInsets.only(right: 30.0),
                                 child: Text('Time'))),
                         Flexible(
-                            child: DropdownButton<String>(
+                            child: DropdownButtonFormField<String>(
                           value: pTypesTime,
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 24,
                           elevation: 16,
+
                           style: const TextStyle(color: Colors.blue),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.blue,
-                          ),
+                          // underline: Container(
+                          //   height: 2,
+                          //   color: Colors.blue,
+                          // ),
                           onChanged: (String? newValue) {
                             setState(() {
                               pTypesTime = newValue!;
@@ -270,6 +271,9 @@ class _uploadProduct extends State<uploadProduct> {
                               child: Text(value),
                             );
                           }).toList(),
+                          validator: (value) => value == null
+                              ? ' Please fill in the time-rate you would be charging others.'
+                              : null,
                         ))
                       ]),
                       const SizedBox(height: 20.0),
@@ -281,16 +285,12 @@ class _uploadProduct extends State<uploadProduct> {
                                 padding: EdgeInsets.only(right: 50.0),
                                 child: Text('Condition'))),
                         Flexible(
-                            child: DropdownButton<String>(
+                            child: DropdownButtonFormField<String>(
                           value: conditionValue,
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 24,
                           elevation: 16,
                           style: const TextStyle(color: Colors.blue),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.blue,
-                          ),
                           onChanged: (String? newValue) {
                             setState(() {
                               conditionValue = newValue!;
@@ -302,6 +302,9 @@ class _uploadProduct extends State<uploadProduct> {
                               child: Text(value),
                             );
                           }).toList(),
+                          validator: (value) => value == null
+                              ? ' Please fill in the condition of your product.'
+                              : null,
                         ))
                       ]),
                       const SizedBox(height: 20.0),
@@ -313,16 +316,12 @@ class _uploadProduct extends State<uploadProduct> {
                                 padding: EdgeInsets.only(right: 30.0),
                                 child: Text('Product Type'))),
                         Flexible(
-                            child: DropdownButton<String>(
+                            child: DropdownButtonFormField<String>(
                           value: pTypesValue,
                           icon: const Icon(Icons.arrow_drop_down),
                           iconSize: 24,
                           elevation: 16,
                           style: const TextStyle(color: Colors.blue),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.blue,
-                          ),
                           onChanged: (String? newValue) {
                             setState(() {
                               pTypesValue = newValue!;
@@ -334,6 +333,9 @@ class _uploadProduct extends State<uploadProduct> {
                               child: Text(value),
                             );
                           }).toList(),
+                          validator: (value) => value == null
+                              ? ' Please fill in the type of product.'
+                              : null,
                         ))
                       ]),
                       const SizedBox(height: 20.0),
@@ -367,10 +369,6 @@ class _uploadProduct extends State<uploadProduct> {
                           onPressed: () async {
                             if (_productfilldata.currentState!.validate() &&
                                 imageFile != null) {
-                              // if (_productfilldata.currentState!.validate()) {
-                              //   print('valid');
-                              // }
-
                               _upload_images();
                               //displays to user that product has been uploaded to firebase
                               showDialog<String>(
