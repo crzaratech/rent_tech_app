@@ -231,12 +231,13 @@ class _uploadProduct extends State<uploadProduct> {
                           hintText: 'Price',
                         ),
                         validator: (value) {
-                          if (value!.isEmpty || value == null) {
+                          if (value!.isEmpty) {
                             return 'Enter a price for the product';
                           }
-                          if (int.tryParse(value) != null) {
+                          if (double.tryParse(value) == null) {
                             return 'Enter a valid price';
                           }
+
                           return null;
                         },
                       ),
@@ -349,9 +350,7 @@ class _uploadProduct extends State<uploadProduct> {
                           if (value!.isEmpty) {
                             return 'Enter a zip code';
                           }
-                          if (int.tryParse(value) != null) {
-                            return 'Enter a valid zipcode';
-                          }
+
                           return null;
                         },
                       ),
