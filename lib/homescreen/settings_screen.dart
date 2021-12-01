@@ -9,6 +9,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rent_tech/authenticate/fire_auth.dart';
 
 class userSettings extends StatefulWidget {
+  String? uid;
+
+  userSettings({Key? key, @required this.uid}) : super(key: key);
   @override
   _userSettings createState() => _userSettings();
 }
@@ -64,43 +67,45 @@ class _userSettings extends State<userSettings> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        const SizedBox(height: 20),
-        Container(
-          alignment: Alignment.center,
-          height: 80,
-          width: 400,
-          padding: EdgeInsets.all(15),
-          child: TextField(
-              decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: 'Email',
-            enabled: false,
-          )),
-        ),
-        const SizedBox(height: 10),
-        EditEmailBttn(),
-        const SizedBox(height: 10),
-        Container(
-          alignment: Alignment.center,
-          height: 80,
-          width: 400,
-          padding: EdgeInsets.all(15),
-          child: TextField(
-              obscureText: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-                enabled: false,
-              )),
-        ),
-        const SizedBox(height: 10),
-        EditPasswordBttn(),
-        const SizedBox(height: 20),
-        LogOutBttn(),
-      ],
-    );
+    return Text('nothing');
   }
 }
+
+// Column(
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: <Widget>[
+//         const SizedBox(height: 20),
+//         Container(
+//           alignment: Alignment.center,
+//           height: 80,
+//           width: 400,
+//           padding: EdgeInsets.all(15),
+//           child: TextField(
+//               decoration: InputDecoration(
+//             border: OutlineInputBorder(),
+//             labelText: 'Email',
+//             enabled: false,
+//           )),
+//         ),
+//         const SizedBox(height: 10),
+//         EditEmailBttn(),
+//         const SizedBox(height: 10),
+//         Container(
+//           alignment: Alignment.center,
+//           height: 80,
+//           width: 400,
+//           padding: EdgeInsets.all(15),
+//           child: TextField(
+//               obscureText: true,
+//               decoration: InputDecoration(
+//                 border: OutlineInputBorder(),
+//                 labelText: 'Password',
+//                 enabled: false,
+//               )),
+//         ),
+//         const SizedBox(height: 10),
+//         EditPasswordBttn(),
+//         const SizedBox(height: 20),
+//         LogOutBttn(),
+//       ],
+//     );

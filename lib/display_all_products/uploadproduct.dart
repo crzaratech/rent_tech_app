@@ -10,12 +10,14 @@ import 'dart:io';
 import 'package:rent_tech/display_all_products/allproducts.dart';
 import 'package:rent_tech/homescreen/home_screen.dart';
 
+import 'package:flutter/services.dart';
+
 class uploadProduct extends StatefulWidget {
   @override
   _uploadProduct createState() => _uploadProduct();
 }
 
-enum pTypes { laptops, desktops }
+enum pTypes { laptops, desktops, accessories }
 
 class _uploadProduct extends State<uploadProduct> {
   //firebase
@@ -37,7 +39,8 @@ class _uploadProduct extends State<uploadProduct> {
   String? conditionValue;
   final List<String> product_types = ['Phone', 'Laptop', 'Desktop', 'Charger'];
   final List<String> product_condition = ['Excellent', 'Moderate', 'Poor'];
-
+  final List<String> product_time_types = ['hour', 'day', 'week'];
+  String? pTypesTime;
 //radio button list
 
   void _getFromGallery() async {
@@ -144,10 +147,11 @@ class _uploadProduct extends State<uploadProduct> {
         'Product_Name': productName.text,
         'Product_Price': price.text,
         'Product_Type': pTypesValue,
+        'Product_Time_Type': pTypesTime,
         'is_available': isAvailable,
         'condition': conditionValue,
         'zip_code': zipCode.text,
-         'is_cart': isCart,
+        'is_cart': isCart,
       });
       //Navigator.canPop(context) ? Navigator.pop(context) : null;
       imageFile = null;
@@ -156,169 +160,249 @@ class _uploadProduct extends State<uploadProduct> {
     }
   }
 
+  final _productfilldata = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    final _productfilldata = GlobalKey<FormState>();
     return Scaffold(
-      backgroundColor: Colors.blue[50],
-      body: Column(
-        children: <Widget>[
-          //add images container
-          Container(
-            padding: EdgeInsets.all(20.0),
-            margin: EdgeInsets.all(15.0),
-            height: 180.0,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              shape: BoxShape.rectangle,
-              color: Colors.lightBlueAccent,
-            ),
-            child: Column(
-              children: <Widget>[
-                CircleAvatar(
-                    radius: 40,
-                    child: imageFile != null
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(50),
-                            child: Image.file(
-                              imageFile!,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.fitHeight,
-                            ),
-                          )
-                        : Container(
-                            decoration: BoxDecoration(
-                                color: Colors.grey[200],
-                                borderRadius: BorderRadius.circular(50)),
-                            width: 100,
-                            height: 100,
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: Colors.grey[800],
-                            ),
-                          )),
-                ElevatedButton(
-                    onPressed: () {
-                      _showImageDialog();
-                    },
-                    child: Text("Add images")),
-              ],
-            ),
-          ),
-          Container(
-            child: Center(
-              child: Text("Product Details"),
-            ),
-          ),
+        backgroundColor: Colors.blue[50],
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _showImageDialog();
+          },
+          child: const Icon(Icons.camera_alt),
+          backgroundColor: Colors.blue,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              //Form Container that contains information about the product
+              Container(
+                padding: const EdgeInsets.all(15.0),
+                margin: const EdgeInsets.all(10.0),
+                child: Form(
+                  key: _productfilldata,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                          child: SizedBox(
+                              height: 200,
+                              child: imageFile != null
+                                  ? Card(
+                                      child: Image.file(
+                                        imageFile!,
+                                        width: 400,
+                                        height: 200,
+                                        fit: BoxFit.fitHeight,
+                                      ),
+                                    )
+                                  : const Card(
+                                      elevation: 5,
+                                      child: Center(
+                                        child:
+                                            Text("No image has been uploaded"),
+                                      ),
+                                    ))),
+                      const SizedBox(height: 15),
+                      //product name
+                      TextFormField(
+                        controller: productName,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Enter the product name',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a valid product name';
+                          }
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      //price
+                      TextFormField(
+                        controller: price,
+                        maxLength: 6,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Price',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a price for the product';
+                          }
+                          if (double.tryParse(value) == null) {
+                            return 'Enter a valid price';
+                          }
 
-          //Form Container that contains information about the product
-          Container(
-            padding: EdgeInsets.all(15.0),
-            margin: EdgeInsets.all(10.0),
-            child: Form(
-              key: _productfilldata,
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    controller: productName,
-                    decoration: const InputDecoration(
-                      hintText: 'Enter the product name',
-                    ),
-                  ),
-                  TextFormField(
-                    controller: price,
-                    decoration: const InputDecoration(
-                      hintText: 'Price',
-                    ),
-                  ),
-                  const SizedBox(height: 20.0),
-                  Row(children: <Widget>[
-                    const Flexible(
-                        flex: 2,
-                        child: Padding(
-                            padding: EdgeInsets.only(right: 50.0),
-                            child: Text('Condition'))),
-                    Flexible(
-                        child: DropdownButton<String>(
-                      value: conditionValue,
-                      icon: const Icon(Icons.arrow_drop_down),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.blue),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.blue,
+                          return null;
+                        },
                       ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          conditionValue = newValue!;
-                        });
-                      },
-                      items: product_condition.map((value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ))
-                  ]),
-                  const SizedBox(height: 20.0),
-                  Row(children: <Widget>[
-                    const Flexible(
-                        flex: 2,
-                        child: Padding(
-                            padding: EdgeInsets.only(right: 30.0),
-                            child: Text('Type of device'))),
-                    Flexible(
-                        child: DropdownButton<String>(
-                      value: pTypesValue,
-                      icon: const Icon(Icons.arrow_drop_down),
-                      iconSize: 24,
-                      elevation: 16,
-                      style: const TextStyle(color: Colors.blue),
-                      underline: Container(
-                        height: 2,
-                        color: Colors.blue,
+                      const SizedBox(height: 20),
+                      //type of timeframe(hour,etc)
+                      Row(children: <Widget>[
+                        const Flexible(
+                            flex: 2,
+                            child: Padding(
+                                padding: EdgeInsets.only(right: 150.0),
+                                child: Text('Time-Rate Charged'))),
+                        Flexible(
+                            child: DropdownButtonFormField<String>(
+                          value: pTypesTime,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.blue),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              pTypesTime = newValue!;
+                            });
+                          },
+                          items: product_time_types.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          validator: (value) =>
+                              value == null ? ' Add valid time-rate.' : null,
+                        ))
+                      ]),
+                      const SizedBox(height: 20.0),
+                      //dropdown condition #add condition of device
+                      Row(children: <Widget>[
+                        const Flexible(
+                            flex: 2,
+                            child: Padding(
+                                padding: EdgeInsets.only(right: 165.0),
+                                child: Text('Product Condition'))),
+                        Flexible(
+                            child: DropdownButtonFormField<String>(
+                          value: conditionValue,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.blue),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              conditionValue = newValue!;
+                            });
+                          },
+                          items: product_condition.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          validator: (value) =>
+                              value == null ? 'Add valid condition.' : null,
+                        ))
+                      ]),
+                      const SizedBox(height: 20.0),
+                      //dropdown type of product
+                      Row(children: <Widget>[
+                        const Flexible(
+                            flex: 2,
+                            child: Padding(
+                                padding: EdgeInsets.only(right: 145.0),
+                                child: Text('Product Type'))),
+                        Flexible(
+                            child: DropdownButtonFormField<String>(
+                          value: pTypesValue,
+                          icon: const Icon(Icons.arrow_drop_down),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.blue),
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              pTypesValue = newValue!;
+                            });
+                          },
+                          items: product_types.map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          validator: (value) =>
+                              value == null ? 'Add valid product type.' : null,
+                        ))
+                      ]),
+                      const SizedBox(height: 20.0),
+                      //zip code
+                      TextFormField(
+                        controller: zipCode,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.deny(RegExp("[.]")),
+                          FilteringTextInputFormatter.deny(RegExp("[,]"))
+                        ],
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: false,
+                        ),
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Zip Code',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a zip code';
+                          }
+
+                          return null;
+                        },
                       ),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          pTypesValue = newValue!;
-                        });
-                      },
-                      items: product_types.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                    ))
-                  ]),
-                  const SizedBox(height: 20.0),
-                  TextFormField(
-                    controller: zipCode,
-                    decoration: const InputDecoration(
-                      hintText: 'Zip Code',
-                    ),
+                      const SizedBox(height: 20.0),
+                      //Submit product bttn
+                      ElevatedButton(
+                          onPressed: () async {
+                            if (_productfilldata.currentState!.validate() &&
+                                imageFile != null) {
+                              _upload_images();
+                              //displays to user that product has been uploaded to firebase
+                              showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                          title: const Text('Product Upload'),
+                                          content: const Text(
+                                              'Product has been uploaded.'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () => {
+                                                      Navigator.pop(
+                                                          context, 'OK')
+                                                    },
+                                                child: const Text('Ok'))
+                                          ]));
+                            } else {
+                              showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                          title: const Text(
+                                              'Product does not contain images/fields'),
+                                          content: const Text(
+                                              'Please include missing fields.'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () => {
+                                                      Navigator.pop(
+                                                          context, 'OK')
+                                                    },
+                                                child: const Text('Ok'))
+                                          ]));
+                            }
+                          },
+                          child: const Text("Upload Product"))
+                    ],
                   ),
-                  const SizedBox(height: 20.0),
-                  ElevatedButton(
-                      onPressed: () async {
-                        if (imageFile != null) {
-                          _upload_images();
-                        }
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
-                      },
-                      child: Text("Make Available to Rent!"))
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
