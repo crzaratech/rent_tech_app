@@ -241,13 +241,13 @@ class _uploadProduct extends State<uploadProduct> {
                         },
                       ),
                       const SizedBox(height: 20),
-                      //type of timeframe(hour,etc) add better description
+                      //type of timeframe(hour,etc)
                       Row(children: <Widget>[
                         const Flexible(
                             flex: 2,
                             child: Padding(
-                                padding: EdgeInsets.only(right: 195.0),
-                                child: Text('Time'))),
+                                padding: EdgeInsets.only(right: 150.0),
+                                child: Text('Time-Rate Charged'))),
                         Flexible(
                             child: DropdownButtonFormField<String>(
                           value: pTypesTime,
@@ -266,9 +266,8 @@ class _uploadProduct extends State<uploadProduct> {
                               child: Text(value),
                             );
                           }).toList(),
-                          validator: (value) => value == null
-                              ? ' Add time-rate you would be charging others.'
-                              : null,
+                          validator: (value) =>
+                              value == null ? ' Add valid time-rate.' : null,
                         ))
                       ]),
                       const SizedBox(height: 20.0),
@@ -278,7 +277,7 @@ class _uploadProduct extends State<uploadProduct> {
                             flex: 2,
                             child: Padding(
                                 padding: EdgeInsets.only(right: 165.0),
-                                child: Text('Condition'))),
+                                child: Text('Product Condition'))),
                         Flexible(
                             child: DropdownButtonFormField<String>(
                           value: conditionValue,
@@ -297,9 +296,8 @@ class _uploadProduct extends State<uploadProduct> {
                               child: Text(value),
                             );
                           }).toList(),
-                          validator: (value) => value == null
-                              ? 'Add the condition of your product.'
-                              : null,
+                          validator: (value) =>
+                              value == null ? 'Add valid condition.' : null,
                         ))
                       ]),
                       const SizedBox(height: 20.0),
@@ -329,7 +327,7 @@ class _uploadProduct extends State<uploadProduct> {
                             );
                           }).toList(),
                           validator: (value) =>
-                              value == null ? 'Add the type of product.' : null,
+                              value == null ? 'Add valid product type.' : null,
                         ))
                       ]),
                       const SizedBox(height: 20.0),
