@@ -17,7 +17,7 @@ class uploadProduct extends StatefulWidget {
   _uploadProduct createState() => _uploadProduct();
 }
 
-enum pTypes { laptops, desktops }
+enum pTypes { laptops, desktops, accessories }
 
 class _uploadProduct extends State<uploadProduct> {
   //firebase
@@ -151,7 +151,7 @@ class _uploadProduct extends State<uploadProduct> {
         'is_available': isAvailable,
         'condition': conditionValue,
         'zip_code': zipCode.text,
-         'is_cart': isCart,
+        'is_cart': isCart,
       });
       //Navigator.canPop(context) ? Navigator.pop(context) : null;
       imageFile = null;
@@ -160,9 +160,10 @@ class _uploadProduct extends State<uploadProduct> {
     }
   }
 
+  final _productfilldata = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    final _productfilldata = GlobalKey<FormState>();
     return Scaffold(
         backgroundColor: Colors.blue[50],
         floatingActionButton: FloatingActionButton(
@@ -197,7 +198,7 @@ class _uploadProduct extends State<uploadProduct> {
                                     )
                                   : const Card(
                                       elevation: 5,
-                                      child:  Center(
+                                      child: Center(
                                         child:
                                             Text("No image has been uploaded"),
                                       ),
@@ -210,6 +211,12 @@ class _uploadProduct extends State<uploadProduct> {
                           border: OutlineInputBorder(),
                           hintText: 'Enter the product name',
                         ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a valid product name';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       //price
@@ -223,6 +230,15 @@ class _uploadProduct extends State<uploadProduct> {
                           border: OutlineInputBorder(),
                           hintText: 'Price',
                         ),
+                        validator: (value) {
+                          if (value!.isEmpty || value == null) {
+                            return 'Enter a price for the product';
+                          }
+                          if (int.tryParse(value) != null) {
+                            return 'Enter a valid price';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 20),
                       //type of timeframe(hour,etc) add better description
@@ -335,12 +351,26 @@ class _uploadProduct extends State<uploadProduct> {
                           border: OutlineInputBorder(),
                           hintText: 'Zip Code',
                         ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter a zip code';
+                          }
+                          if (int.tryParse(value) != null) {
+                            return 'Enter a valid zipcode';
+                          }
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 20.0),
                       //Submit product bttn
                       ElevatedButton(
                           onPressed: () async {
-                            if (imageFile != null) {
+                            if (imageFile != null &&
+                                _productfilldata.currentState!.validate()) {
+                              // if (_productfilldata.currentState!.validate()) {
+                              //   print('valid');
+                              // }
+
                               _upload_images();
                               //displays to user that product has been uploaded to firebase
                               showDialog<String>(
