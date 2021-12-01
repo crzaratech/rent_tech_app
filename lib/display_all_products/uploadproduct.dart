@@ -246,7 +246,7 @@ class _uploadProduct extends State<uploadProduct> {
                         const Flexible(
                             flex: 2,
                             child: Padding(
-                                padding: EdgeInsets.only(right: 30.0),
+                                padding: EdgeInsets.only(right: 195.0),
                                 child: Text('Time'))),
                         Flexible(
                             child: DropdownButtonFormField<String>(
@@ -282,7 +282,7 @@ class _uploadProduct extends State<uploadProduct> {
                         const Flexible(
                             flex: 2,
                             child: Padding(
-                                padding: EdgeInsets.only(right: 50.0),
+                                padding: EdgeInsets.only(right: 165.0),
                                 child: Text('Condition'))),
                         Flexible(
                             child: DropdownButtonFormField<String>(
@@ -313,7 +313,7 @@ class _uploadProduct extends State<uploadProduct> {
                         const Flexible(
                             flex: 2,
                             child: Padding(
-                                padding: EdgeInsets.only(right: 30.0),
+                                padding: EdgeInsets.only(right: 145.0),
                                 child: Text('Product Type'))),
                         Flexible(
                             child: DropdownButtonFormField<String>(
