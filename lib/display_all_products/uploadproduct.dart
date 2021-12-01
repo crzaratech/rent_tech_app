@@ -365,8 +365,8 @@ class _uploadProduct extends State<uploadProduct> {
                       //Submit product bttn
                       ElevatedButton(
                           onPressed: () async {
-                            if (imageFile != null &&
-                                _productfilldata.currentState!.validate()) {
+                            if (_productfilldata.currentState!.validate() &&
+                                imageFile != null) {
                               // if (_productfilldata.currentState!.validate()) {
                               //   print('valid');
                               // }
@@ -380,6 +380,23 @@ class _uploadProduct extends State<uploadProduct> {
                                           title: const Text('Product Upload'),
                                           content: const Text(
                                               'Product has been uploaded.'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                                onPressed: () => {
+                                                      Navigator.pop(
+                                                          context, 'OK')
+                                                    },
+                                                child: const Text('Ok'))
+                                          ]));
+                            } else {
+                              showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                          title: const Text(
+                                              'Product does not contain images/fields'),
+                                          content: const Text(
+                                              'Please include missing fields.'),
                                           actions: <Widget>[
                                             TextButton(
                                                 onPressed: () => {
