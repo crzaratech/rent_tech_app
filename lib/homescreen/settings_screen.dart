@@ -17,6 +17,7 @@ class userSettings extends StatefulWidget {
 }
 
 class _userSettings extends State<userSettings> {
+  var currentUser = FirebaseAuth.instance.currentUser;
   Widget EditEmailBttn() {
     return Center(
         child: Column(
@@ -51,7 +52,7 @@ class _userSettings extends State<userSettings> {
                           onPressed: () => Navigator.pop(context, 'Cancel'),
                           child: const Text('Cancel')),
                       TextButton(
-                        key: Key('logout-ok-btn'),
+                          key: Key('logout-ok-btn'),
                           onPressed: () async {
                             Navigator.pop(context, 'OK');
                             await FirebaseAuth.instance.signOut();
@@ -67,45 +68,44 @@ class _userSettings extends State<userSettings> {
 
   @override
   Widget build(BuildContext context) {
-    return Text('nothing');
+    var email = currentUser!.email;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const SizedBox(height: 20),
+        Container(
+          alignment: Alignment.center,
+          height: 80,
+          width: 400,
+          padding: EdgeInsets.all(15),
+          child: TextField(
+              decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: '$email',
+            enabled: true,
+          )),
+        ),
+        const SizedBox(height: 10),
+        EditEmailBttn(),
+        const SizedBox(height: 10),
+        Container(
+          alignment: Alignment.center,
+          height: 80,
+          width: 400,
+          padding: EdgeInsets.all(15),
+          child: TextField(
+              obscureText: true,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+                enabled: false,
+              )),
+        ),
+        const SizedBox(height: 10),
+        EditPasswordBttn(),
+        const SizedBox(height: 20),
+        LogOutBttn(),
+      ],
+    );
   }
 }
-
-// Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: <Widget>[
-//         const SizedBox(height: 20),
-//         Container(
-//           alignment: Alignment.center,
-//           height: 80,
-//           width: 400,
-//           padding: EdgeInsets.all(15),
-//           child: TextField(
-//               decoration: InputDecoration(
-//             border: OutlineInputBorder(),
-//             labelText: 'Email',
-//             enabled: false,
-//           )),
-//         ),
-//         const SizedBox(height: 10),
-//         EditEmailBttn(),
-//         const SizedBox(height: 10),
-//         Container(
-//           alignment: Alignment.center,
-//           height: 80,
-//           width: 400,
-//           padding: EdgeInsets.all(15),
-//           child: TextField(
-//               obscureText: true,
-//               decoration: InputDecoration(
-//                 border: OutlineInputBorder(),
-//                 labelText: 'Password',
-//                 enabled: false,
-//               )),
-//         ),
-//         const SizedBox(height: 10),
-//         EditPasswordBttn(),
-//         const SizedBox(height: 20),
-//         LogOutBttn(),
-//       ],
-//     );
