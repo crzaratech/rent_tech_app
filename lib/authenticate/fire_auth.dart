@@ -59,17 +59,27 @@ class AuthService {
     return _auth.currentUser!.email;
   }
 
-  Future updateCurrentUserEmail(String email) async {
+  Future updateCurrentUserEmail(String email, String password) async {
     try {
-      _auth.currentUser!.updateEmail(email);
+      //method requires recent authentication so you have to do this step
+      User user = await _auth.currentUser!;
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: user.email!, password: password);
+      await user.reauthenticateWithCredential(credential);
+      await _auth.currentUser!.updateEmail(email);
     } catch (error) {
       print(error.toString());
       return null;
     }
   }
 
-  Future updateCurrentUserPassword(String pwd) async {
+  Future updateCurrentUserPassword(String pwd, String oldpwd) async {
     try {
+      //method requires recent authentication so you have to do this step
+      User user = await _auth.currentUser!;
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: user.email!, password: oldpwd);
+      await user.reauthenticateWithCredential(credential);
       _auth.currentUser!.updatePassword(pwd);
     } catch (error) {
       print(error.toString());

@@ -20,12 +20,15 @@ class _userSettings extends State<userSettings> {
   AuthService currentUser = AuthService();
   final emailController = TextEditingController();
   final pwdController = TextEditingController();
+  final currentpwdController = TextEditingController();
   void updateEmail() {
-    currentUser.updateCurrentUserEmail(emailController.text);
+    currentUser.updateCurrentUserEmail(
+        emailController.text, currentpwdController.text);
   }
 
   void updatePassword() {
-    currentUser.updateCurrentUserPassword(pwdController.text);
+    currentUser.updateCurrentUserPassword(
+        pwdController.text, currentpwdController.text);
   }
 
   Widget EditEmailBttn() {
@@ -39,15 +42,29 @@ class _userSettings extends State<userSettings> {
                   builder: (BuildContext context) => AlertDialog(
                           title: const Text('Update email'),
                           content: const Text(
-                              'Are you sure you want to update your email?'),
+                              'If you want to update your email, enter your password hit the submit button. '),
                           actions: <Widget>[
-                            TextButton(
-                                onPressed: () => {Navigator.pop(context, 'No')},
-                                child: const Text('No')),
-                            TextButton(
-                                onPressed: () =>
-                                    {Navigator.pop(context, 'Yes')},
-                                child: const Text('Yes'))
+                            TextField(
+                                controller: currentpwdController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Password',
+                                  enabled: true,
+                                )),
+                            Row(
+                              children: <Widget>[
+                                TextButton(
+                                    onPressed: () =>
+                                        {Navigator.pop(context, 'No')},
+                                    child: const Text('No')),
+                                TextButton(
+                                    onPressed: () => {
+                                          updateEmail(),
+                                          Navigator.pop(context, 'Yes')
+                                        },
+                                    child: const Text('Yes'))
+                              ],
+                            )
                           ]));
             },
             child: const Text('Edit Email'))
@@ -64,17 +81,32 @@ class _userSettings extends State<userSettings> {
               showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Update Password'),
+                          title: const Text('Update email'),
                           content: const Text(
-                              'Are you sure you want to update your password?'),
+                              'If you want to update your password, enter your previous password hit the submit button. '),
                           actions: <Widget>[
-                            TextButton(
-                                onPressed: () => {Navigator.pop(context, 'No')},
-                                child: const Text('No')),
-                            TextButton(
-                                onPressed: () =>
-                                    {Navigator.pop(context, 'Yes')},
-                                child: const Text('Yes'))
+                            TextField(
+                                obscureText: true,
+                                controller: currentpwdController,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Password',
+                                  enabled: true,
+                                )),
+                            Row(
+                              children: <Widget>[
+                                TextButton(
+                                    onPressed: () =>
+                                        {Navigator.pop(context, 'No')},
+                                    child: const Text('No')),
+                                TextButton(
+                                    onPressed: () => {
+                                          updatePassword(),
+                                          Navigator.pop(context, 'Yes')
+                                        },
+                                    child: const Text('Yes'))
+                              ],
+                            )
                           ]));
             },
             child: const Text('Edit Password'))
@@ -141,11 +173,11 @@ class _userSettings extends State<userSettings> {
           width: 400,
           padding: EdgeInsets.all(15),
           child: TextField(
+              controller: pwdController,
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Password',
-                enabled: false,
               )),
         ),
         const SizedBox(height: 10),
