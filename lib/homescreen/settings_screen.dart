@@ -45,6 +45,7 @@ class _userSettings extends State<userSettings> {
                               'If you want to update your email, enter your password hit the submit button. '),
                           actions: <Widget>[
                             TextField(
+                                obscureText: true,
                                 controller: currentpwdController,
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
