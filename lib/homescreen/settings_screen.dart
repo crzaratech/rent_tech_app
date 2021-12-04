@@ -17,12 +17,40 @@ class userSettings extends StatefulWidget {
 }
 
 class _userSettings extends State<userSettings> {
-  var currentUser = FirebaseAuth.instance.currentUser;
+  AuthService currentUser = AuthService();
+  final emailController = TextEditingController();
+  final pwdController = TextEditingController();
+  void updateEmail() {
+    currentUser.updateCurrentUserEmail(emailController.text);
+  }
+
+  void updatePassword() {
+    currentUser.updateCurrentUserPassword(pwdController.text);
+  }
+
   Widget EditEmailBttn() {
     return Center(
         child: Column(
       children: <Widget>[
-        OutlinedButton(onPressed: () => {}, child: Text('Edit Email'))
+        OutlinedButton(
+            onPressed: () {
+              showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Update email'),
+                          content: const Text(
+                              'Are you sure you want to update your email?'),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () => {Navigator.pop(context, 'No')},
+                                child: const Text('No')),
+                            TextButton(
+                                onPressed: () =>
+                                    {Navigator.pop(context, 'Yes')},
+                                child: const Text('Yes'))
+                          ]));
+            },
+            child: const Text('Edit Email'))
       ],
     ));
   }
@@ -31,7 +59,25 @@ class _userSettings extends State<userSettings> {
     return Center(
         child: Column(
       children: <Widget>[
-        OutlinedButton(onPressed: () => {}, child: Text('Edit Password'))
+        OutlinedButton(
+            onPressed: () {
+              showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Update Password'),
+                          content: const Text(
+                              'Are you sure you want to update your password?'),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () => {Navigator.pop(context, 'No')},
+                                child: const Text('No')),
+                            TextButton(
+                                onPressed: () =>
+                                    {Navigator.pop(context, 'Yes')},
+                                child: const Text('Yes'))
+                          ]));
+            },
+            child: const Text('Edit Password'))
       ],
     ));
   }
@@ -68,7 +114,7 @@ class _userSettings extends State<userSettings> {
 
   @override
   Widget build(BuildContext context) {
-    var email = currentUser!.email;
+    var email = currentUser.getCurrentUserEmail();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -79,11 +125,12 @@ class _userSettings extends State<userSettings> {
           width: 400,
           padding: EdgeInsets.all(15),
           child: TextField(
+              controller: emailController,
               decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            labelText: '$email',
-            enabled: true,
-          )),
+                border: OutlineInputBorder(),
+                labelText: '$email',
+                enabled: true,
+              )),
         ),
         const SizedBox(height: 10),
         EditEmailBttn(),
