@@ -29,13 +29,27 @@ class _BuyProductState extends State<BuyProduct> {
         var document = snapshot.data!.data();
         var value = document!['Product_Name'];
         var imgurl = document['Image'];
+        var price = document['Product_Price'];
+        var condition = document['condition'];
         return Scaffold(
           body: Column(
             children: <Widget>[
               Container(
+                margin: const EdgeInsets.all(3.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+
+                  borderRadius: BorderRadius.all(Radius.circular(5.0), //                 <--- border radius here
+                  ),),
                 child: Image.network(imgurl),
               ),
               Container(
+                margin: const EdgeInsets.all(5.0),
+                padding: const EdgeInsets.all(3.0),
+                decoration: BoxDecoration(
+                border: Border.all(color: Colors.blueAccent),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0), //                 <--- border radius here
+        ),),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -43,7 +57,37 @@ class _BuyProductState extends State<BuyProduct> {
                       //Use of SizedBox
                       height: 10,
                     ),
-                  
+
+                    Container(
+                      child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text("$value",
+                              style: TextStyle(
+                                fontSize: 22.0,
+                                fontWeight: FontWeight.bold,
+
+                              ),),),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text("cost: $price /hr",
+                              style: TextStyle(
+                                fontSize: 22.0,
+                              ),),),
+
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Text("condition $condition",
+                              style: TextStyle(
+                                fontSize: 22.0,
+
+                              ),),),
+                        ],
+                      ),
+
+                    ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -64,12 +108,14 @@ class _BuyProductState extends State<BuyProduct> {
                                         //after you click the button
                                       });
                                     },
+
                                     child: Text(
                                       "Add To Cart $value",
                                       textAlign: TextAlign.left,
                                     ))))
                       ],
                     )
+
                   ],
                 ),
               )
