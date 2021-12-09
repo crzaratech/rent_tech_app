@@ -121,9 +121,6 @@ class _shoppingcart extends State<shoppingcart> {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           title: new Text('${this.count} items ',
-        
-          
-          
           style: TextStyle(
             fontSize: 30,
              color: Colors.black,),
@@ -170,6 +167,7 @@ class _shoppingcart extends State<shoppingcart> {
                 child: Text('No Products in database!'),
               );
             }),
+
       ),
     );
   }
