@@ -110,7 +110,7 @@ class _BuyProductState extends State<BuyProduct> {
                                     },
 
                                     child: Text(
-                                      "Add To Cart $value",
+                                      "Add $value To Cart ",
                                       textAlign: TextAlign.left,
                                     ))))
                       ],
