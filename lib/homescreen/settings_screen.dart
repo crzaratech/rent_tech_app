@@ -40,9 +40,14 @@ class _userSettings extends State<userSettings> {
               showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Update email'),
+                          title: const Text(
+                            'Update email',
+                            key: Key('upd-email'),
+                          ),
                           content: const Text(
-                              'If you want to update your email, enter your password hit the submit button. '),
+                            'If you want to update your email, enter your password hit the submit button. ',
+                            key: Key('edit-msg'),
+                          ),
                           actions: <Widget>[
                             TextField(
                                 obscureText: true,
@@ -57,18 +62,27 @@ class _userSettings extends State<userSettings> {
                                 TextButton(
                                     onPressed: () =>
                                         {Navigator.pop(context, 'No')},
-                                    child: const Text('No')),
+                                    child: const Text('No',
+                                        key: Key(
+                                          'email-no-btn',
+                                        ))),
                                 TextButton(
                                     onPressed: () => {
                                           updateEmail(),
                                           Navigator.pop(context, 'Yes')
                                         },
-                                    child: const Text('Yes'))
+                                    child: const Text('Yes',
+                                        key: Key(
+                                          'email-yes-btn',
+                                        )))
                               ],
                             )
                           ]));
             },
-            child: const Text('Edit Email'))
+            child: const Text(
+              'Edit Email',
+              key: Key('edit-email-btn'),
+            ))
       ],
     ));
   }
@@ -99,7 +113,10 @@ class _userSettings extends State<userSettings> {
                                 TextButton(
                                     onPressed: () =>
                                         {Navigator.pop(context, 'No')},
-                                    child: const Text('No')),
+                                    child: const Text('No',
+                                        key: Key(
+                                          'pwd-no-btn',
+                                        ))),
                                 TextButton(
                                     onPressed: () => {
                                           updatePassword(),
@@ -110,7 +127,10 @@ class _userSettings extends State<userSettings> {
                             )
                           ]));
             },
-            child: const Text('Edit Password'))
+            child: const Text(
+              'Edit Password',
+              key: Key('edit-pwd-btn'),
+            ))
       ],
     ));
   }
@@ -120,11 +140,14 @@ class _userSettings extends State<userSettings> {
         child: Column(
       children: <Widget>[
         ElevatedButton(
-          key: Key('logout-btn'),
+          // key: Key('logout-btn'),
           onPressed: () => showDialog(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Log out'),
+                    title: const Text(
+                      'Log out',
+                      key: Key('logout-btn'),
+                    ),
                     content: const Text('Are you sure you want to log out?'),
                     actions: <Widget>[
                       TextButton(
@@ -139,7 +162,10 @@ class _userSettings extends State<userSettings> {
                           child: const Text('Log out'))
                     ],
                   )),
-          child: const Text('Logout'),
+          child: const Text(
+            'Logout',
+            key: Key('logout-btn'),
+          ),
         ),
       ],
     ));

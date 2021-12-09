@@ -10,9 +10,9 @@ setUpAll(() async{
 driver = await FlutterDriver.connect();
 });
 
-/*tearDownAll(()async{
+tearDownAll(()async{
   await driver.close();
-});*/
+});
  
 group('Happy Paths', (){
 /*
@@ -96,18 +96,7 @@ test(
    await driver.waitFor(find.text("Rent"));
    await driver.tap(laptopicbutton);
 });
-/*
-test('test product',()async
-{
-final productbutton = find.byValueKey('product-btn');
-await driver.tap(productbutton);
 
-await driver.waitFor(find.text("Add To Cart"));
-
-
-
-});
-*/
 });
 
 group('bottombar naviagtion', () {
@@ -121,14 +110,96 @@ group('bottombar naviagtion', () {
      await driver.tap(find.text('Rented Products'));
      await driver.tap(find.text('Settings'));
   });
+  test('if I am on the settting page and click the edit button', ()async 
+{ 
+ //final signintextbutton = find.byValueKey('signin-txt');
+final editemailbutton = find.byValueKey('edit-email-btn');
+final editnoemailbutton = find.byValueKey('email-no-btn');
+
+ await driver.tap(editemailbutton);
+ await driver.waitFor(find.text('If you want to update your email, enter your password hit the submit button. '));
+ await driver.tap(editnoemailbutton);
+});
+test('if I am on the setting page and click the password', ()async
+{
+final editpwdbutton = find.byValueKey('edit-pwd-btn');
+final editnopwdbutton = find.byValueKey('pwd-no-btn');
+final logoutbuttonFinder= find.byValueKey('logout-btn');
+final logout2buttonFinder= find.byValueKey('logout-ok-btn');
+
+
+await driver.tap(editpwdbutton);
+await driver.waitFor(find.text('If you want to update your password, enter your previous password hit the submit button. '));
+await driver.tap(editnopwdbutton);
+await driver.tap(logoutbuttonFinder);
+await driver.tap(logout2buttonFinder);
 });
 
-/*
- group('sad path',(){
-test('',()async{
-
 });
 
- });*/
+group('sad path', () {
+  test('If I am on the login page, and type my mu username, but not my passwod I should stay on the login page until I type both username and password ',() async
+  {
+  final loginbuttonFinder= find.byValueKey('login-btn');
+  final emailinputs = find.byValueKey('email-input');
+  final passwordinputs= find.byValueKey('pwd-input');
+  final  BottomNavigationBarItem= find.byValueKey('bottom');
+  final logoutbuttonFinder= find.byValueKey('logout-btn');
+  final logout2buttonFinder= find.byValueKey('logout-ok-btn');
+
+  await driver.tap(emailinputs);
+  await driver.enterText('josefvassell@gmail.com');
+  await driver.tap(loginbuttonFinder);
+  await driver.waitFor(find.text("Sign In"));
+   await driver.tap(passwordinputs);
+   await driver.enterText('Hardwork12!');
+   await driver.tap(loginbuttonFinder);
+   
+   await driver.waitFor(find.byValueKey('bottom'));
+   await driver.tap(find.text('Settings'));
+   await driver.tap(logoutbuttonFinder);
+   await driver.tap(logout2buttonFinder);
+
+  });
+  test('If I am on the login page, and type my mu password, but not my username I should stay on the login page until I type both username and password ', ()async 
+{ 
+ final loginbuttonFinder= find.byValueKey('login-btn');
+  final emailinputs = find.byValueKey('email-input');
+  final passwordinputs= find.byValueKey('pwd-input');
+  final  BottomNavigationBarItem= find.byValueKey('bottom');
+  final logoutbuttonFinder= find.byValueKey('logout-btn');
+  final logout2buttonFinder= find.byValueKey('logout-ok-btn');
+
+   await driver.tap(passwordinputs);
+   await driver.enterText('Hardwork12!');
+   await driver.waitFor(find.text("Sign In"));
+   await driver.tap(loginbuttonFinder);
+   await driver.tap(emailinputs);
+   await driver.enterText('josefvassell@gmail.com');
+   await driver.tap(loginbuttonFinder);
+   await driver.waitFor(find.byValueKey('bottom'));
+   await driver.tap(find.text('Settings'));
+   await driver.tap(logoutbuttonFinder);
+   await driver.tap(logout2buttonFinder);
+});
+
+
+});
+ test('After I login in I should go to my cart, and see the products in my cart', ()async 
+ {
+ final loginbuttonFinder= find.byValueKey('login-btn');
+ final emailinputs = find.byValueKey('email-input');
+ final passwordinputs= find.byValueKey('pwd-input');
+final  BottomNavigationBarItem= find.byValueKey('bottom');
+ final cartbutton =find.byValueKey('cart-btn');
+   await driver.tap(emailinputs);
+   await driver.enterText('josefvassell@gmail.com');
+   await driver.tap(passwordinputs);
+   await driver.enterText('Hardwork12!');
+   await driver.tap(loginbuttonFinder);
+   await driver.waitFor(find.text("Rent"));
+   await driver.tap(cartbutton);
+
+ });
   });
 }
